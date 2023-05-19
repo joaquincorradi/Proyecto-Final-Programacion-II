@@ -1,3 +1,6 @@
+#ifndef PROYECTOFINAL_SRC_CLIENTE_CLIENTE_H_
+#define PROYECTOFINAL_SRC_CLIENTE_CLIENTE_H_
+
 #include <string>
 
 class cliente {
@@ -23,3 +26,5 @@ public:
   void setAnioDeIngresoDelCliente(int);
   void setEstadoDelCliente(bool);
 };
+
+#endif
