@@ -36,7 +36,7 @@ void Cliente::imprimirInformacionDelCliente() {
   std::cout << "- Cliente numero: " << numeroDeCliente << '\n';
   std::cout << "- Nombre y apellido: " << nombreDelCliente << " "
             << apellidoDelCliente << '\n';
-  std::cout << "Beneficiario de la categoria ";
+  std::cout << "- Beneficiario de la categoria ";
   if (clientePlata) {
     std::cout << "plata\n";
   } else if (clienteOro) {
@@ -44,8 +44,8 @@ void Cliente::imprimirInformacionDelCliente() {
   } else {
     std::cout << "black\n";
   }
-  std::cout << "Anio de ingreso: " << anioDeIngresoDelCliente << '\n';
-  std::cout << "Estado del cliente: ";
+  std::cout << "- Anio de ingreso: " << anioDeIngresoDelCliente << '\n';
+  std::cout << "- Estado del cliente: ";
   if (estadoDelCliente) {
     std::cout << "activo\n";
   } else {
@@ -90,7 +90,7 @@ void Cliente::operator++(int) {
   }
   estadoDelCliente = true;
   if (estadoDelCliente) {
-    std::cout << "¡Cliente creado con exito!\n";
+    std::cout << "¡Cliente creado con exito!\n\n";
     std::cout << "Resumen del cliente dado de alta: \n";
     imprimirInformacionDelCliente();
   } else {

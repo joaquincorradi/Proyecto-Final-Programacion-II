@@ -7,6 +7,8 @@ void primeraOpcion(Cliente cliente);
 int main() {
   Cliente obj("nombre", "apellido");
   obj++;
+  obj--;
+  obj.imprimirInformacionDelCliente();
 }
 
 void mostrarMenu(char &seleccionDelMenu) {
