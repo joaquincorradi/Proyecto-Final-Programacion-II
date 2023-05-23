@@ -1,10 +1,12 @@
+#include "src/cliente/cliente.h"
 #include <iostream>
 
 void mostrarMenu(char &seleccionDelMenu);
+void primeraOpcion(Cliente cliente);
 
 int main() {
-  char seleccionDelMenu;
-  mostrarMenu(seleccionDelMenu);
+  Cliente obj("nombre", "apellido");
+  obj++;
 }
 
 void mostrarMenu(char &seleccionDelMenu) {
