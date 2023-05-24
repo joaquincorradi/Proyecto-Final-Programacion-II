@@ -1,17 +1,23 @@
 #include "src/cliente/cliente.h"
 #include <iostream>
+#include <vector>
 
-void mostrarMenu(char &seleccionDelMenu);
-void primeraOpcion(Cliente cliente);
+void mostrarMenu(char *pSeleccionDelMenuPrincipal);
+void primeraOpcion(std::vector<Cliente *> objCliente,
+                   int *pContadorCantidadCliente);
 
 int main() {
-  Cliente obj("nombre", "apellido");
-  obj++;
-  obj--;
-  obj.imprimirInformacionDelCliente();
+  std::vector<Cliente *> objCliente;
+
+  // Variables y punteros necesarios para las funciones:
+  int contadorCantidadCliente = 0;
+  int *pContadorCantidadCliente = &contadorCantidadCliente;
+
+  char seleccionDelMenuPrincipal;
+  char *pSeleccionDelMenuPrincipal;
 }
 
-void mostrarMenu(char &seleccionDelMenu) {
+void mostrarMenu(char *pSeleccionDelMenuPrincipal) {
   std::cout
       << "\n==============================================================\n";
   std::cout
@@ -22,7 +28,7 @@ void mostrarMenu(char &seleccionDelMenu) {
          " | |_) | | |_ \\ V / (_| | |_| | | |_  | |_) | (_| | | | |   <  \n"
          " |____/|_|\\__| \\_/ \\__,_|\\__,_|_|\\__| |____/ \\__,_|_| "
          "|_|_|\\_\\ \n\n";
-  std::cout << "'Protegiendo sus activos digitales.'\n\n";
+  std::cout << "'Protegiendo sus activos digitales.~'\n\n";
   std::cout
       << "==============================================================\n\n";
   std::cout << "Bienvenido. Para continuar seleccione una opcion:\n\n";
@@ -38,5 +44,13 @@ void mostrarMenu(char &seleccionDelMenu) {
   std::cout
       << "--------------------------------------------------------------\n";
   std::cout << "Ingrese su eleccion: ";
-  std::cin >> seleccionDelMenu;
+  std::cin >> *pSeleccionDelMenuPrincipal;
+}
+
+void primeraOpcion(std::vector<Cliente *> objCliente,
+                   int *pContadorCantidadCliente) {
+  objCliente.push_back(new Cliente("", ""));
+  objCliente[*pContadorCantidadCliente];
+  ++*pContadorCantidadCliente;
+  ++*objCliente;
 }
