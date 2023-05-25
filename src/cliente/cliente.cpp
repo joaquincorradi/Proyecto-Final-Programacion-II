@@ -3,9 +3,9 @@
 #include <iostream>
 #include <string>
 
-Cliente::Cliente(std::string _nombreDelCliente, std::string _apellidoDelCliente)
+Cliente::Cliente(std::string _nombreDelCliente, std::string _apellidoDelCliente, bool _estadoDelCliente, int _numeroDeCliente)
     : nombreDelCliente(_nombreDelCliente),
-      apellidoDelCliente(_apellidoDelCliente) {}
+      apellidoDelCliente(_apellidoDelCliente), estadoDelCliente(_estadoDelCliente), numeroDeCliente(_numeroDeCliente) {}
 
 int Cliente::getNumeroDeCliente() { return numeroDeCliente; }
 std::string Cliente::getNombreDelCliente() { return nombreDelCliente; }
@@ -106,5 +106,15 @@ void Cliente::operator--(int) {
     std::cout << "La baja fue realizada con exito.\n";
   } else {
     std::cout << "Ocurrio un error.\n";
+  }
+}
+
+void Cliente::listarTodosLosClientes() {
+  std::cout << "Lista de clientes: \n\n";
+  std::cout << " - " << nombreDelCliente << " " << apellidoDelCliente << ", " << "estado: ";
+  if(estadoDelCliente) {
+    std::cout << "activo.\n\n";
+  } else {
+    std::cout << "inactivo.\n\n";
   }
 }

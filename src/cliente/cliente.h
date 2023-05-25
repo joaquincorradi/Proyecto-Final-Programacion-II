@@ -15,7 +15,7 @@ private:
   bool estadoDelCliente;
 
 public:
-  Cliente(std::string, std::string);
+  Cliente(std::string, std::string, bool, int);
 
   int getNumeroDeCliente();
   std::string getNombreDelCliente();
@@ -36,6 +36,8 @@ public:
 
   void operator++(int);
   void operator--(int);
+
+  void listarTodosLosClientes();
 };
 
 #endif
