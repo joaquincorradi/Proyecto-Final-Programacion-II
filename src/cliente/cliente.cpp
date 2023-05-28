@@ -3,9 +3,11 @@
 #include <iostream>
 #include <string>
 
-Cliente::Cliente(std::string _nombreDelCliente, std::string _apellidoDelCliente, bool _estadoDelCliente, int _numeroDeCliente)
+Cliente::Cliente(std::string _nombreDelCliente, std::string _apellidoDelCliente,
+                 bool _estadoDelCliente, int _numeroDeCliente)
     : nombreDelCliente(_nombreDelCliente),
-      apellidoDelCliente(_apellidoDelCliente), estadoDelCliente(_estadoDelCliente), numeroDeCliente(_numeroDeCliente) {}
+      apellidoDelCliente(_apellidoDelCliente),
+      estadoDelCliente(_estadoDelCliente), numeroDeCliente(_numeroDeCliente) {}
 
 int Cliente::getNumeroDeCliente() { return numeroDeCliente; }
 std::string Cliente::getNombreDelCliente() { return nombreDelCliente; }
@@ -53,7 +55,7 @@ void Cliente::imprimirInformacionDelCliente() {
   }
 }
 
-void Cliente::operator++(int) {
+void Cliente::operator++() {
   std::string respuestaACategoria;
   std::cout << "Alta de nuevo cliente:\n\n";
   std::cout << "Ingrese nombre: ";
@@ -98,7 +100,7 @@ void Cliente::operator++(int) {
   }
 }
 
-void Cliente::operator--(int) {
+void Cliente::operator--() {
   std::cout << "Se procedera a dar de baja al cliente " << nombreDelCliente
             << " " << apellidoDelCliente << '\n';
   estadoDelCliente = false;
@@ -111,8 +113,9 @@ void Cliente::operator--(int) {
 
 void Cliente::listarTodosLosClientes() {
   std::cout << "Lista de clientes: \n\n";
-  std::cout << " - " << nombreDelCliente << " " << apellidoDelCliente << ", " << "estado: ";
-  if(estadoDelCliente) {
+  std::cout << " - " << nombreDelCliente << " " << apellidoDelCliente << ", "
+            << "estado: ";
+  if (estadoDelCliente) {
     std::cout << "activo.\n\n";
   } else {
     std::cout << "inactivo.\n\n";

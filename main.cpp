@@ -6,27 +6,25 @@ void opcion1(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente);
 
 int main() {
-
   Cliente *objCliente[20];
-  for (int i = 0; i < 20; ++i){
+  for (int i = 0; i < 20; ++i) {
     objCliente[i] = new Cliente("sin", "datos", false, i + 1);
   }
 
   // Variables y punteros necesarios para las funciones:
-  int contadorCantidadCliente = 0;
+  int contadorCantidadCliente = -1;
   int *pContadorCantidadCliente = &contadorCantidadCliente;
 
   char seleccionDelMenuPrincipal;
   char *pSeleccionDelMenuPrincipal;
 
   opcion1(objCliente, pContadorCantidadCliente);
-  // opcion5(objCliente, pContadorCantidadCliente);
+  opcion5(objCliente, pContadorCantidadCliente);
 
-  for(int i = 0; i < 20; ++i) {
+  for (int i = 0; i < 20; ++i) {
     delete objCliente[i];
     objCliente[i] = nullptr;
   }
-
 }
 
 void mostrarMenu(char *pSeleccionDelMenuPrincipal) {
@@ -61,20 +59,50 @@ void mostrarMenu(char *pSeleccionDelMenuPrincipal) {
 
 void opcion1(Cliente *objCliente[20], int *pContadorCantidadCliente) {
   ++*pContadorCantidadCliente;
-  ++objCliente[*pContadorCantidadCliente];
+  objCliente[*pContadorCantidadCliente]->setNumeroDeCliente(
+      *pContadorCantidadCliente);
+  std::cout
+      << "\n==============================================================\n";
+  std::cout
+      << "  ____  _ _ __     __          _ _     ____              _     \n"
+         " | __ )(_) |\\ \\   / /_ _ _   _| | |_  | __ )  __ _ _ __ | | __ \n"
+         " |  _ \\| | __\\ \\ / / _` | | | | | __| |  _ \\ / _` | '_ \\| |/ / "
+         "\n"
+         " | |_) | | |_ \\ V / (_| | |_| | | |_  | |_) | (_| | | | |   <  \n"
+         " |____/|_|\\__| \\_/ \\__,_|\\__,_|_|\\__| |____/ \\__,_|_| "
+         "|_|_|\\_\\ \n\n";
+  std::cout << "'Protegiendo sus activos digitales.~'\n\n";
+  std::cout
+      << "==============================================================\n\n";
+  ++*objCliente[*pContadorCantidadCliente];
 }
 
 void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente) {
   int numeroDeClienteElegido = 0;
+  std::cout
+      << "\n==============================================================\n";
+  std::cout
+      << "  ____  _ _ __     __          _ _     ____              _     \n"
+         " | __ )(_) |\\ \\   / /_ _ _   _| | |_  | __ )  __ _ _ __ | | __ \n"
+         " |  _ \\| | __\\ \\ / / _` | | | | | __| |  _ \\ / _` | '_ \\| |/ / "
+         "\n"
+         " | |_) | | |_ \\ V / (_| | |_| | | |_  | |_) | (_| | | | |   <  \n"
+         " |____/|_|\\__| \\_/ \\__,_|\\__,_|_|\\__| |____/ \\__,_|_| "
+         "|_|_|\\_\\ \n\n";
+  std::cout << "'Protegiendo sus activos digitales.~'\n\n";
+  std::cout
+      << "==============================================================\n\n";
   std::cout << "Consulta de cliente por numero de cliente.\n\n";
   std::cout << "Ingrese un numero de cliente para consultar: ";
   std::cin >> numeroDeClienteElegido;
-  if(numeroDeClienteElegido >= *pContadorCantidadCliente) {
-    std::cout << "\nNo hay cliente con el numero " << numeroDeClienteElegido << " de cliente.\n";
+  std::cout << '\n';
+  if (numeroDeClienteElegido > *pContadorCantidadCliente) {
+    std::cout << "\nNo hay cliente con el numero " << numeroDeClienteElegido
+              << " de cliente.\n";
   } else {
-    for(int i = 0; i < *pContadorCantidadCliente; ++i) {
-      if(numeroDeClienteElegido == objCliente[i]->getNumeroDeCliente()) {
-      objCliente[i]->imprimirInformacionDelCliente();
+    for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
+      if (numeroDeClienteElegido == objCliente[i]->getNumeroDeCliente()) {
+        objCliente[i]->imprimirInformacionDelCliente();
       }
     }
   }

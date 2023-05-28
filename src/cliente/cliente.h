@@ -34,8 +34,8 @@ public:
 
   void imprimirInformacionDelCliente();
 
-  void operator++(int);
-  void operator--(int);
+  void operator++();
+  void operator--();
 
   void listarTodosLosClientes();
 };
