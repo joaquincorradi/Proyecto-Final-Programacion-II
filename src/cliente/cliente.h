@@ -1,6 +1,8 @@
 #ifndef PROYECTOFINAL_SRC_CLIENTE_CLIENTE_H_
 #define PROYECTOFINAL_SRC_CLIENTE_CLIENTE_H_
 
+#include "../transaccion/transaccion.h"
+
 #include <string>
 
 class Cliente {
@@ -13,9 +15,10 @@ private:
   bool clienteBlack;
   int anioDeIngresoDelCliente;
   bool estadoDelCliente;
+  float dineroEnCuenta;
 
 public:
-  Cliente(std::string, std::string, bool, int);
+  Cliente(std::string, std::string, bool, int, float);
 
   int getNumeroDeCliente();
   std::string getNombreDelCliente();
@@ -25,12 +28,14 @@ public:
   bool getClienteBlack();
   int getAnioDeIngresoDelCliente();
   bool getEstadoDelCliente();
+  float getDineroEnCuenta();
 
   void setNumeroDeCliente(int);
   void setNombreDelCliente(std::string);
   void setApellidoDelCliente(std::string);
   void setAnioDeIngresoDelCliente(int);
   void setEstadoDelCliente(bool);
+  void setDineroEnCuenta(float);
 
   void imprimirInformacionDelCliente();
 
@@ -38,6 +43,8 @@ public:
   void operator--();
 
   void listarTodosLosClientes();
+
+  Transaccion objTransaccionCliente;
 };
 
 #endif

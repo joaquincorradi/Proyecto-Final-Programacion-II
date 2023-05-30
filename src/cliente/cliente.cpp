@@ -3,11 +3,7 @@
 #include <iostream>
 #include <string>
 
-Cliente::Cliente(std::string _nombreDelCliente, std::string _apellidoDelCliente,
-                 bool _estadoDelCliente, int _numeroDeCliente)
-    : nombreDelCliente(_nombreDelCliente),
-      apellidoDelCliente(_apellidoDelCliente),
-      estadoDelCliente(_estadoDelCliente), numeroDeCliente(_numeroDeCliente) {}
+Cliente::Cliente(std::string _nombreDelCliente, std::string _apelllidoDelCliente, bool _estadoDelCliente, int _numeroDeCliente, float _dineroEnCuenta) : nombreDelCliente(_nombreDelCliente), apellidoDelCliente(_apelllidoDelCliente), estadoDelCliente(_estadoDelCliente), numeroDeCliente(_numeroDeCliente), dineroEnCuenta(_dineroEnCuenta) {}
 
 int Cliente::getNumeroDeCliente() { return numeroDeCliente; }
 std::string Cliente::getNombreDelCliente() { return nombreDelCliente; }
@@ -17,6 +13,7 @@ bool Cliente::getClientePlata() { return clientePlata; }
 bool Cliente::getClienteOro() { return clienteOro; }
 bool Cliente::getClienteBlack() { return clienteBlack; }
 bool Cliente::getEstadoDelCliente() { return estadoDelCliente; }
+float Cliente::getDineroEnCuenta() { return dineroEnCuenta; }
 
 void Cliente::setNumeroDeCliente(int _numeroDelCliente) {
   numeroDeCliente = _numeroDelCliente;
@@ -33,6 +30,8 @@ void Cliente::setAnioDeIngresoDelCliente(int _anioDeIngresoDelCliente) {
 void Cliente::setEstadoDelCliente(bool _estadoDelCliente) {
   estadoDelCliente = _estadoDelCliente;
 }
+void Cliente::setDineroEnCuenta(float _dineroEnCuenta) { dineroEnCuenta = _dineroEnCuenta; }
+
 
 void Cliente::imprimirInformacionDelCliente() {
   std::cout << "- Cliente numero: " << numeroDeCliente << '\n';
@@ -104,6 +103,7 @@ void Cliente::operator--() {
   std::cout << "Se procedera a dar de baja al cliente " << nombreDelCliente
             << " " << apellidoDelCliente << '\n';
   estadoDelCliente = false;
+  dineroEnCuenta = 0.0;
   if (!estadoDelCliente) {
     std::cout << "La baja fue realizada con exito.\n";
   } else {
@@ -118,6 +118,7 @@ void Cliente::listarTodosLosClientes() {
             << "estado: ";
   if (estadoDelCliente) {
     std::cout << "activo.\n";
+    std::cout << "- Dinero en cuenta: $" << dineroEnCuenta << '\n';
   } else {
     std::cout << "inactivo.\n";
   }

@@ -12,27 +12,26 @@ class Transaccion{
   int anioDeTransaccion;
 
   public:
-  Transaccion(float, bool, bool);
-  int getnumeroDeTransaccion();
-  float getmontoDeTransaccion();
-  bool getextraccion();
-  bool getdeposito();
-  int getdiaDetransaccion();
-  int getmesDeTransaccion();
-  int getanioDeTransaccion();
+  Transaccion();
+  Transaccion(int);
+  int getNumeroDeTransaccion();
+  float getMontoDeTransaccion();
+  bool getExtraccion();
+  bool getDeposito();
+  int getDiaDetransaccion();
+  int getMesDeTransaccion();
+  int getAnioDeTransaccion();
 
-  void setnumeroDeTransaccion(int);
-  void setmontoDeTransaccion(float);
-  void setextraccion(bool);
-  void setdeposito(bool);
-  void setdiaDeTransaccion(int);
-  void setmesDeTransaccion(int);
-  void setanioDeTransaccion(int);
+  void setNumeroDeTransaccion(int);
+  void setMontoDeTransaccion(float);
+  void setExtraccion(bool);
+  void setDeposito(bool);
+  void setDiaDeTransaccion(int);
+  void setMesDeTransaccion(int);
+  void setAnioDeTransaccion(int);
 
+  void realizarExtraccion(float*);
+  void realizarDeposito(float*, float);
 };
-
-
-
-
 
 #endif
