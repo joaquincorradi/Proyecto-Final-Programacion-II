@@ -21,13 +21,13 @@ class Transaccion{
   int getmesDeTransaccion();
   int getanioDeTransaccion();
 
-  void setnumeroDeTransaccion();
-  void setmontoDeTransaccion();
-  void setextraccion();
-  void setdeposito();
-  void setdiaDeTransaccion();
-  void setmesDeTransaccion();
-  void setanioDeTransaccion();
+  void setnumeroDeTransaccion(int);
+  void setmontoDeTransaccion(float);
+  void setextraccion(bool);
+  void setdeposito(bool);
+  void setdiaDeTransaccion(int);
+  void setmesDeTransaccion(int);
+  void setanioDeTransaccion(int);
 
 };
 
