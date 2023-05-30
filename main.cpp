@@ -3,7 +3,9 @@
 
 void mostrarMenu(char *pSeleccionDelMenuPrincipal);
 void opcion1(Cliente *objCliente[20], int *pContadorCantidadCliente);
+void opcion2(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente);
+void opcion6(Cliente *objCliente[20], int *pContadorCantidadCliente);
 
 int main() {
   Cliente *objCliente[20];
@@ -19,7 +21,11 @@ int main() {
   char *pSeleccionDelMenuPrincipal;
 
   opcion1(objCliente, pContadorCantidadCliente);
-  opcion5(objCliente, pContadorCantidadCliente);
+  opcion1(objCliente, pContadorCantidadCliente);
+  opcion1(objCliente, pContadorCantidadCliente);
+  opcion6(objCliente, pContadorCantidadCliente);
+  opcion2(objCliente, pContadorCantidadCliente);
+  opcion6(objCliente, pContadorCantidadCliente);
 
   for (int i = 0; i < 20; ++i) {
     delete objCliente[i];
@@ -61,37 +67,31 @@ void opcion1(Cliente *objCliente[20], int *pContadorCantidadCliente) {
   ++*pContadorCantidadCliente;
   objCliente[*pContadorCantidadCliente]->setNumeroDeCliente(
       *pContadorCantidadCliente);
-  std::cout
-      << "\n==============================================================\n";
-  std::cout
-      << "  ____  _ _ __     __          _ _     ____              _     \n"
-         " | __ )(_) |\\ \\   / /_ _ _   _| | |_  | __ )  __ _ _ __ | | __ \n"
-         " |  _ \\| | __\\ \\ / / _` | | | | | __| |  _ \\ / _` | '_ \\| |/ / "
-         "\n"
-         " | |_) | | |_ \\ V / (_| | |_| | | |_  | |_) | (_| | | | |   <  \n"
-         " |____/|_|\\__| \\_/ \\__,_|\\__,_|_|\\__| |____/ \\__,_|_| "
-         "|_|_|\\_\\ \n\n";
-  std::cout << "'Protegiendo sus activos digitales.~'\n\n";
-  std::cout
-      << "==============================================================\n\n";
   ++*objCliente[*pContadorCantidadCliente];
+}
+
+void opcion2(Cliente *objCliente[20], int *pContadorCantidadCliente) {
+  int eleccionDelUsuario = 0;
+  int *pEleccionDelUsuario = &eleccionDelUsuario;
+  bool existeElUsuario = true;
+  bool *pExisteElUsuario = &existeElUsuario;
+
+  std::cout << "Ingrese numero del usuario que desea dar de baja: ";
+  std::cin >> *pEleccionDelUsuario;
+  for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
+    if (*pEleccionDelUsuario == objCliente[i]->getNumeroDeCliente() &&
+        objCliente[i]->getEstadoDelCliente()) {
+      --*objCliente[i];
+      *pExisteElUsuario = true;
+    }
+  }
+  if (!*pExisteElUsuario) {
+    std::cout << "El cliente ingresado no existe o no se encuentra activo. \n";
+  }
 }
 
 void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente) {
   int numeroDeClienteElegido = 0;
-  std::cout
-      << "\n==============================================================\n";
-  std::cout
-      << "  ____  _ _ __     __          _ _     ____              _     \n"
-         " | __ )(_) |\\ \\   / /_ _ _   _| | |_  | __ )  __ _ _ __ | | __ \n"
-         " |  _ \\| | __\\ \\ / / _` | | | | | __| |  _ \\ / _` | '_ \\| |/ / "
-         "\n"
-         " | |_) | | |_ \\ V / (_| | |_| | | |_  | |_) | (_| | | | |   <  \n"
-         " |____/|_|\\__| \\_/ \\__,_|\\__,_|_|\\__| |____/ \\__,_|_| "
-         "|_|_|\\_\\ \n\n";
-  std::cout << "'Protegiendo sus activos digitales.~'\n\n";
-  std::cout
-      << "==============================================================\n\n";
   std::cout << "Consulta de cliente por numero de cliente.\n\n";
   std::cout << "Ingrese un numero de cliente para consultar: ";
   std::cin >> numeroDeClienteElegido;
@@ -105,5 +105,11 @@ void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente) {
         objCliente[i]->imprimirInformacionDelCliente();
       }
     }
+  }
+}
+
+void opcion6(Cliente *objCliente[20], int *pContadorCantidadCliente) {
+  for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
+    objCliente[i]->listarTodosLosClientes();
   }
 }
