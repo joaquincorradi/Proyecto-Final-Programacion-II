@@ -1,8 +1,8 @@
 #ifndef PROYECTOFINAL_SRC_EXTRACCION_EXTRACCION_H_
 #define PROYECTOFINAL_SRC_EXTRACCION_EXTRACCION_H_
 
-class Transaccion{
-  private:
+class Transaccion {
+private:
   int numeroDeTransaccion;
   float montoDeTransaccion;
   bool extraccion;
@@ -11,7 +11,7 @@ class Transaccion{
   int mesDeTransaccion;
   int anioDeTransaccion;
 
-  public:
+public:
   Transaccion();
   Transaccion(int);
   int getNumeroDeTransaccion();
@@ -30,8 +30,8 @@ class Transaccion{
   void setMesDeTransaccion(int);
   void setAnioDeTransaccion(int);
 
-  void realizarExtraccion(float*);
-  void realizarDeposito(float*, float);
+  void realizarExtraccion(float *);
+  void realizarDeposito(float *, float);
 };
 
 #endif
