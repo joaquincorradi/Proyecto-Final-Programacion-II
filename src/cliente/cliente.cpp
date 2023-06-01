@@ -14,6 +14,7 @@ bool Cliente::getClienteOro() { return clienteOro; }
 bool Cliente::getClienteBlack() { return clienteBlack; }
 bool Cliente::getEstadoDelCliente() { return estadoDelCliente; }
 float Cliente::getDineroEnCuenta() { return dineroEnCuenta; }
+int Cliente::getCantidadDeTransacciones() { return cantidadDeTransacciones; }
 
 void Cliente::setNumeroDeCliente(int _numeroDelCliente) {
   numeroDeCliente = _numeroDelCliente;
@@ -31,6 +32,9 @@ void Cliente::setEstadoDelCliente(bool _estadoDelCliente) {
   estadoDelCliente = _estadoDelCliente;
 }
 void Cliente::setDineroEnCuenta(float _dineroEnCuenta) { dineroEnCuenta = _dineroEnCuenta; }
+void Cliente::setCantidadDeTransacciones(int _cantidadDeTransacciones) {
+  cantidadDeTransacciones = _cantidadDeTransacciones;
+}
 
 
 void Cliente::imprimirInformacionDelCliente() {

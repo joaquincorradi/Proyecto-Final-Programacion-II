@@ -31,7 +31,7 @@ public:
   void setAnioDeTransaccion(int);
 
   void realizarExtraccion(float *);
-  void realizarDeposito(float *, float);
+  void realizarDeposito(float *);
 };
 
 #endif

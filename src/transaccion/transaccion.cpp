@@ -41,6 +41,8 @@ void Transaccion::realizarExtraccion(float *dineroEnCuenta) {
   float montoDeExtraccion = 0;
   float *pMontoDeExtraccion = &montoDeExtraccion;
 
+  std::cout << "Ingrese la fecha de la extraccion [dia mes anio]: ";
+  std::cin >> diaDeTransaccion, mesDeTransaccion, anioDeTransaccion; //agregar chequeo de anio
   std::cout << "Ingrese el monto a extraer: $";
   std::cin >> *pMontoDeExtraccion;
 
@@ -56,10 +58,21 @@ void Transaccion::realizarExtraccion(float *dineroEnCuenta) {
   }
 }
 
-void Transaccion::realizarDeposito(float *dineroEnCuenta,
-                                   float montoDeDeposito) {
-  std::cout << "Desposito de dinero.\n\n";
-  *dineroEnCuenta += montoDeDeposito;
+void Transaccion::realizarDeposito(float *dineroEnCuenta) {
+  float montoDeDeposito = 0;
+  float *pMontoDeDeposito = &montoDeDeposito;
+
+  std::cout << "Ingrese la fecha de la extraccion [dia mes anio]: ";
+  std::cin >> diaDeTransaccion, mesDeTransaccion, anioDeTransaccion; //agregar chequeo de anio
+  std::cout << "Ingrese el monto a depositar: $";
+  std::cin>> *pMontoDeDeposito;
+
+  while (*pMontoDeDeposito <= 0){
+    std:: cout << "Ingrese un monto valido";
+    std::cin>> *pMontoDeDeposito;
+  }
+
+  *dineroEnCuenta += *pMontoDeDeposito;
   std::cout << "El deposito de realizo con exito.\n";
   std::cout << "Dinero en cuenta: $" << *dineroEnCuenta << '\n';
 }

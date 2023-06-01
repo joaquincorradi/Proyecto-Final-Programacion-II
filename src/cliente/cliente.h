@@ -16,6 +16,7 @@ private:
   int anioDeIngresoDelCliente;
   bool estadoDelCliente;
   float dineroEnCuenta;
+  int cantidadDeTransacciones;
 
 public:
   Cliente(std::string, std::string, bool, int, float);
@@ -29,6 +30,7 @@ public:
   int getAnioDeIngresoDelCliente();
   bool getEstadoDelCliente();
   float getDineroEnCuenta();
+  int getCantidadDeTransacciones();
 
   void setNumeroDeCliente(int);
   void setNombreDelCliente(std::string);
@@ -36,6 +38,7 @@ public:
   void setAnioDeIngresoDelCliente(int);
   void setEstadoDelCliente(bool);
   void setDineroEnCuenta(float);
+  void setCantidadDeTransacciones(int);
 
   void imprimirInformacionDelCliente();
 
@@ -44,7 +47,7 @@ public:
 
   void listarTodosLosClientes();
 
-  Transaccion objTransaccionCliente;
+  Transaccion objTransaccionCliente[10];
 };
 
 #endif
