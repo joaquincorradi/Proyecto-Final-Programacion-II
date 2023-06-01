@@ -4,7 +4,8 @@
 void mostrarMenu(char *pSeleccionDelMenuPrincipal);
 void opcion1(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion2(Cliente *objCliente[20], int *pContadorCantidadCliente);
-void opcion3(Cliente *objCliente[20], int *pContadorCantidadCliente, int *pContadorNroTransaccion);
+void opcion3(Cliente *objCliente[20], int *pContadorCantidadCliente,
+             int *pContadorNroTransaccion);
 void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion6(Cliente *objCliente[20], int *pContadorCantidadCliente);
 
@@ -93,30 +94,39 @@ void opcion2(Cliente *objCliente[20], int *pContadorCantidadCliente) {
   }
 }
 
-void opcion3(Cliente *objCliente[20], int *pContadorCantidadCliente, int *pContadorNroTransaccion) {
+void opcion3(Cliente *objCliente[20], int *pContadorCantidadCliente,
+             int *pContadorNroTransaccion) {
   int numeroDeClienteElegido = 0;
   int *pNumeroDeClienteElegido = &numeroDeClienteElegido;
-  
+
   std::cout << "Extraccion de dinero.\n\n";
   std::cout << "Ingrese el numero de cliente para realizar una extraccion: ";
   std::cin >> *pNumeroDeClienteElegido;
 
   for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
-    if (*pNumeroDeClienteElegido == objCliente[i]->getNumeroDeCliente()) {
-      int tempCantidadDeTrasancciones = objCliente[i]->getCantidadDeTransacciones(); // hago esto para poder usar '++'
+    if (*pNumeroDeClienteElegido == objCliente[i]->getNumeroDeCliente() &&
+        objCliente[i]->getEstadoDelCliente()) {
+      int tempCantidadDeTrasancciones =
+          objCliente[i]->getCantidadDeTransacciones();
       int *pTempCantidadDeTrasacciones = &tempCantidadDeTrasancciones;
+      // hago esto para poder usar '++'
 
       ++*pTempCantidadDeTrasacciones;
 
       float dineroEnCuentaTemp = objCliente[i]->getDineroEnCuenta();
       float *pDineroEnCuentaTemp = &dineroEnCuentaTemp;
 
-      objCliente[i]->objTransaccionCliente[*pTempCantidadDeTrasacciones].realizarExtraccion(*pDineroEnCuentaTemp);
-      objCliente[i]->objTransaccionCliente[*pTempCantidadDeTrasacciones].setNumeroDeTransaccion(*pContadorNroTransaccion);
+      objCliente[i]
+          ->objTransaccionCliente[*pTempCantidadDeTrasacciones]
+          .realizarExtraccion(pDineroEnCuentaTemp);
+      objCliente[i]
+          ->objTransaccionCliente[*pTempCantidadDeTrasacciones]
+          .setNumeroDeTransaccion(*pContadorNroTransaccion);
       objCliente[i]->setCantidadDeTransacciones(*pTempCantidadDeTrasacciones);
       objCliente[i]->setDineroEnCuenta(*pDineroEnCuentaTemp);
     } else {
-      std::cout << "No existe el cliente nro. " << *pNumeroDeClienteElegido << "\n";
+      std::cout << "No existe el cliente nro. " << *pNumeroDeClienteElegido
+                << " o esta inactivo" << '\n';
     }
   }
 }
