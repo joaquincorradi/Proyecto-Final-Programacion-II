@@ -30,7 +30,7 @@ public:
   void setMesDeTransaccion(int);
   void setAnioDeTransaccion(int);
 
-  void realizarExtraccion(float *);
+  void realizarExtraccion(float);
   void realizarDeposito(float *);
 };
 

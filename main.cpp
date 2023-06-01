@@ -11,7 +11,7 @@ void opcion6(Cliente *objCliente[20], int *pContadorCantidadCliente);
 int main() {
   Cliente *objCliente[20];
   for (int i = 0; i < 20; ++i) {
-    objCliente[i] = new Cliente("sin", "datos", false, i + 1, 0.0);
+    objCliente[i] = new Cliente("sin", "datos", false, i + 1, 1000.0);
   }
 
   // Variables y punteros necesarios para las funciones:
@@ -26,7 +26,9 @@ int main() {
 
   opcion1(objCliente, pContadorCantidadCliente);
   objCliente[0]->setDineroEnCuenta(100);
-  opcion3(objCliente, pContadorCantidadCliente);
+  opcion3(objCliente, pContadorCantidadCliente, pContadorNroTransaccion);
+  opcion3(objCliente, pContadorCantidadCliente, pContadorNroTransaccion);
+  opcion3(objCliente, pContadorCantidadCliente, pContadorNroTransaccion);
 
   for (int i = 0; i < 20; ++i) {
     delete objCliente[i];
@@ -98,15 +100,17 @@ void opcion3(Cliente *objCliente[20], int *pContadorCantidadCliente, int *pConta
   std::cout << "Extraccion de dinero.\n\n";
   std::cout << "Ingrese el numero de cliente para realizar una extraccion: ";
   std::cin >> *pNumeroDeClienteElegido;
+
   for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
     if (*pNumeroDeClienteElegido == objCliente[i]->getNumeroDeCliente()) {
-      int tempCantidadDeTrasancciones = objCliente[i]->getCantidadDeTransacciones();
+      int tempCantidadDeTrasancciones = objCliente[i]->getCantidadDeTransacciones(); // hago esto para poder usar '++'
       int *pTempCantidadDeTrasacciones = &tempCantidadDeTrasancciones;
+
+      ++*pTempCantidadDeTrasacciones;
 
       float dineroEnCuentaTemp = objCliente[i]->getDineroEnCuenta();
       float *pDineroEnCuentaTemp = &dineroEnCuentaTemp;
 
-      ++*pTempCantidadDeTrasacciones;
       objCliente[i]->objTransaccionCliente[*pTempCantidadDeTrasacciones].realizarExtraccion(*pDineroEnCuentaTemp);
       objCliente[i]->objTransaccionCliente[*pTempCantidadDeTrasacciones].setNumeroDeTransaccion(*pContadorNroTransaccion);
       objCliente[i]->setCantidadDeTransacciones(*pTempCantidadDeTrasacciones);
