@@ -1,43 +1,22 @@
 #include "src/cliente/cliente.h"
-#include <iostream>
 
-void mostrarMenu(char *pSeleccionDelMenuPrincipal);
+#include <iostream>
+#include <cstdlib>
+
+void mostrarMenu(int *pSeleccionDelMenuPrincipal);
 void opcion1(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion2(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion3(Cliente *objCliente[20], int *pContadorCantidadCliente,
              int *pContadorNroTransaccion);
 void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion6(Cliente *objCliente[20], int *pContadorCantidadCliente);
+void incializarMenu();
 
 int main() {
-  Cliente *objCliente[20];
-  for (int i = 0; i < 20; ++i) {
-    objCliente[i] = new Cliente("sin", "datos", false, i + 1, 1000.0);
-  }
-
-  // Variables y punteros necesarios para las funciones:
-  int contadorCantidadCliente = -1;
-  int *pContadorCantidadCliente = &contadorCantidadCliente;
-
-  int contadorNroTransaccion = -1;
-  int *pContadorNroTransaccion = &contadorNroTransaccion;
-
-  char seleccionDelMenuPrincipal;
-  char *pSeleccionDelMenuPrincipal;
-
-  opcion1(objCliente, pContadorCantidadCliente);
-  objCliente[0]->setDineroEnCuenta(100);
-  opcion3(objCliente, pContadorCantidadCliente, pContadorNroTransaccion);
-  opcion3(objCliente, pContadorCantidadCliente, pContadorNroTransaccion);
-  opcion3(objCliente, pContadorCantidadCliente, pContadorNroTransaccion);
-
-  for (int i = 0; i < 20; ++i) {
-    delete objCliente[i];
-    objCliente[i] = nullptr;
-  }
+  incializarMenu();
 }
 
-void mostrarMenu(char *pSeleccionDelMenuPrincipal) {
+void mostrarMenu(int *pSeleccionDelMenuPrincipal) {
   std::cout
       << "\n==============================================================\n";
   std::cout
@@ -152,5 +131,104 @@ void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente) {
 void opcion6(Cliente *objCliente[20], int *pContadorCantidadCliente) {
   for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
     objCliente[i]->listarTodosLosClientes();
+  }
+}
+
+void incializarMenu() {
+  Cliente *objCliente[20];
+  for (int i = 0; i < 20; ++i) {
+    objCliente[i] = new Cliente("sin", "datos", false, i + 1, 0.0);
+  }
+  // Variables para el menu
+  char seleccionDelUsuarioFinal = 's';
+  char *pSeleccionDelUsuarioFinal = &seleccionDelUsuarioFinal;
+
+  bool quiereSalir = false;
+  bool *pQuiereSalir = &quiereSalir;
+
+  // Variables y punteros necesarios para las funciones:
+  int contadorCantidadCliente = -1;
+  int *pContadorCantidadCliente = &contadorCantidadCliente;
+
+  int contadorNroTransaccion = -1;
+  int *pContadorNroTransaccion = &contadorNroTransaccion;
+
+  int seleccionDelMenuPrincipal;
+  int *pSeleccionDelMenuPrincipal = &seleccionDelMenuPrincipal;
+
+  /*
+  while (*pSeleccionDelUsuarioFinal == 's' || *pSeleccionDelUsuarioFinal == 'S') {
+    mostrarMenu(pSeleccionDelMenuPrincipal);
+    std::cout << "Aca se termino de ejecutar el menu\n";
+    std::cout << *pSeleccionDelMenuPrincipal;
+    switch (*pSeleccionDelMenuPrincipal){
+    case 1:
+      std::cout << "Hola";
+      break;
+    
+    default:
+      std::cout << "La opcion seleccionada no es valida.\n";
+      break;
+    }
+    *pSeleccionDelUsuarioFinal = 'n';
+  } */
+  
+
+  while (*pSeleccionDelUsuarioFinal == 's' || *pSeleccionDelUsuarioFinal == 'S') {
+    mostrarMenu(pSeleccionDelMenuPrincipal);
+    std::cout << std::flush;
+    system("cls||clear");
+    switch (*pSeleccionDelMenuPrincipal) {
+    case 1:
+      opcion1(objCliente, pContadorCantidadCliente);
+      break;
+    
+    case 2:
+      opcion2(objCliente, pContadorCantidadCliente);
+      break;
+
+    case 3:
+      opcion3(objCliente, pContadorCantidadCliente, pContadorNroTransaccion);
+      break;
+    
+    case 4:
+      break;
+
+    case 5:
+      opcion5(objCliente, pContadorCantidadCliente);
+      break;
+    
+    case 6:
+      opcion6(objCliente, pContadorCantidadCliente);
+      break;
+    
+    case 7:
+      break;
+
+    case 8:
+      break;
+
+    case 9: // no funciona
+      *pQuiereSalir = true;
+      break;
+    
+    default:
+      std::cout << "La opcion seleccionada no es valida.\n";
+      break;
+    }
+    if (!*pQuiereSalir){
+      std::cout << "¿Desea volver al menu principal? [S/n]: ";
+      std::cin >> *pSeleccionDelUsuarioFinal;
+      if (*pSeleccionDelUsuarioFinal == 's' || *pSeleccionDelUsuarioFinal == 'S'){
+        system("cls||clear");
+      } else {
+        *pSeleccionDelUsuarioFinal = 'n';
+      }
+    }
+  }
+
+  for (int i = 0; i < 20; ++i) {
+    delete objCliente[i];
+    objCliente[i] = nullptr;
   }
 }
