@@ -116,12 +116,11 @@ void Cliente::operator--() {
 }
 
 void Cliente::listarTodosLosClientes() {
-  std::cout << "Lista de clientes: \n\n";
   std::cout << " - [Nro. " << numeroDeCliente << "] " << nombreDelCliente << " "
             << apellidoDelCliente << ", "
             << "estado: ";
   if (estadoDelCliente) {
-    std::cout << "activo.\n";
+    std::cout << "activo. ";
     std::cout << "- Dinero en cuenta: $" << dineroEnCuenta << '\n';
   } else {
     std::cout << "inactivo.\n";

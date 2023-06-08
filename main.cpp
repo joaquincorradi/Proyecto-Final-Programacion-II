@@ -1,20 +1,26 @@
+/*
+  To do:
+  - El programa no sale cuando se elige la opcion 9.
+  - Hacer el sistema de exportacion de archivos con fstream
+  - Hacer opcion 4
+*/
 #include "src/cliente/cliente.h"
 
-#include <iostream>
 #include <cstdlib>
+#include <iostream>
 
 void mostrarMenu(int *pSeleccionDelMenuPrincipal);
 void opcion1(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion2(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion3(Cliente *objCliente[20], int *pContadorCantidadCliente,
              int *pContadorNroTransaccion);
+void opcion4(Cliente *objCliente[20], int *pContadorCantidadCliente,
+             int *pContadorNroTransaccion);
 void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion6(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void incializarMenu();
 
-int main() {
-  incializarMenu();
-}
+int main() { incializarMenu(); }
 
 void mostrarMenu(int *pSeleccionDelMenuPrincipal) {
   std::cout
@@ -110,6 +116,9 @@ void opcion3(Cliente *objCliente[20], int *pContadorCantidadCliente,
   }
 }
 
+void opcion4(Cliente *objCliente[20], int *pContadorCantidadCliente,
+             int *pContadorNroTransaccion) {}
+
 void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente) {
   int numeroDeClienteElegido = 0;
   std::cout << "Consulta de cliente por numero de cliente.\n\n";
@@ -157,24 +166,20 @@ void incializarMenu() {
   int *pSeleccionDelMenuPrincipal = &seleccionDelMenuPrincipal;
 
   /*
-  while (*pSeleccionDelUsuarioFinal == 's' || *pSeleccionDelUsuarioFinal == 'S') {
-    mostrarMenu(pSeleccionDelMenuPrincipal);
-    std::cout << "Aca se termino de ejecutar el menu\n";
-    std::cout << *pSeleccionDelMenuPrincipal;
-    switch (*pSeleccionDelMenuPrincipal){
-    case 1:
-      std::cout << "Hola";
-      break;
-    
+  while (*pSeleccionDelUsuarioFinal == 's' || *pSeleccionDelUsuarioFinal == 'S')
+  { mostrarMenu(pSeleccionDelMenuPrincipal); std::cout << "Aca se termino de
+  ejecutar el menu\n"; std::cout << *pSeleccionDelMenuPrincipal; switch
+  (*pSeleccionDelMenuPrincipal){ case 1: std::cout << "Hola"; break;
+
     default:
       std::cout << "La opcion seleccionada no es valida.\n";
       break;
     }
     *pSeleccionDelUsuarioFinal = 'n';
   } */
-  
 
-  while (*pSeleccionDelUsuarioFinal == 's' || *pSeleccionDelUsuarioFinal == 'S') {
+  while (*pSeleccionDelUsuarioFinal == 's' ||
+         *pSeleccionDelUsuarioFinal == 'S') {
     mostrarMenu(pSeleccionDelMenuPrincipal);
     std::cout << std::flush;
     system("cls||clear");
@@ -182,7 +187,7 @@ void incializarMenu() {
     case 1:
       opcion1(objCliente, pContadorCantidadCliente);
       break;
-    
+
     case 2:
       opcion2(objCliente, pContadorCantidadCliente);
       break;
@@ -190,18 +195,18 @@ void incializarMenu() {
     case 3:
       opcion3(objCliente, pContadorCantidadCliente, pContadorNroTransaccion);
       break;
-    
+
     case 4:
       break;
 
     case 5:
       opcion5(objCliente, pContadorCantidadCliente);
       break;
-    
+
     case 6:
       opcion6(objCliente, pContadorCantidadCliente);
       break;
-    
+
     case 7:
       break;
 
@@ -211,15 +216,16 @@ void incializarMenu() {
     case 9: // no funciona
       *pQuiereSalir = true;
       break;
-    
+
     default:
       std::cout << "La opcion seleccionada no es valida.\n";
       break;
     }
-    if (!*pQuiereSalir){
+    if (!*pQuiereSalir) {
       std::cout << "¿Desea volver al menu principal? [S/n]: ";
       std::cin >> *pSeleccionDelUsuarioFinal;
-      if (*pSeleccionDelUsuarioFinal == 's' || *pSeleccionDelUsuarioFinal == 'S'){
+      if (*pSeleccionDelUsuarioFinal == 's' ||
+          *pSeleccionDelUsuarioFinal == 'S') {
         system("cls||clear");
       } else {
         *pSeleccionDelUsuarioFinal = 'n';
