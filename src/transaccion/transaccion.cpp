@@ -50,7 +50,7 @@ void Transaccion::realizarExtraccion(float *dineroEnCuenta) {
   if ((*dineroEnCuenta - *pMontoDeExtraccion) >= 0) {
     *dineroEnCuenta -= *pMontoDeExtraccion;
     std::cout << "La extraccion se realizo con exito.\n";
-    std::cout << "Dinero restante en cuenta: $" << dineroEnCuenta << '\n';
+    std::cout << "Dinero restante en cuenta: $" << *dineroEnCuenta << '\n';
   } else {
     std::cout
         << "No hay suficiente monto en la cuenta para hacer la extraccion.\n";

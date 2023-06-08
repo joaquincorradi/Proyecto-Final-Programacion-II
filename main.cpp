@@ -2,7 +2,10 @@
   To do:
   - El programa no sale cuando se elige la opcion 9.
   - Hacer el sistema de exportacion de archivos con fstream
-  - Hacer opcion 4
+  - Realizar chequeos de fechas
+  - Error al realizar deposito y extraccion
+  - Al dar de baja sacar dinero en cuenta del cliente
+  - Agregar funcion para reactivar cliente
 */
 #include "src/cliente/cliente.h"
 
@@ -84,40 +87,102 @@ void opcion3(Cliente *objCliente[20], int *pContadorCantidadCliente,
   int numeroDeClienteElegido = 0;
   int *pNumeroDeClienteElegido = &numeroDeClienteElegido;
 
+  bool chequeoDeExistencia = false;
+  bool *pChequeoDeExistencia = &chequeoDeExistencia;
+
   std::cout << "Extraccion de dinero.\n\n";
   std::cout << "Ingrese el numero de cliente para realizar una extraccion: ";
   std::cin >> *pNumeroDeClienteElegido;
-
-  for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
+  
+  // Chequeo previo para ver si el usuario existe
+  for (int i = 0; i <= *pContadorCantidadCliente; ++i){
     if (*pNumeroDeClienteElegido == objCliente[i]->getNumeroDeCliente() &&
         objCliente[i]->getEstadoDelCliente()) {
-      int tempCantidadDeTrasancciones =
-          objCliente[i]->getCantidadDeTransacciones();
-      int *pTempCantidadDeTrasacciones = &tempCantidadDeTrasancciones;
-      // hago esto para poder usar '++'
-
-      ++*pTempCantidadDeTrasacciones;
-
-      float dineroEnCuentaTemp = objCliente[i]->getDineroEnCuenta();
-      float *pDineroEnCuentaTemp = &dineroEnCuentaTemp;
-
-      objCliente[i]
-          ->objTransaccionCliente[*pTempCantidadDeTrasacciones]
-          .realizarExtraccion(pDineroEnCuentaTemp);
-      objCliente[i]
-          ->objTransaccionCliente[*pTempCantidadDeTrasacciones]
-          .setNumeroDeTransaccion(*pContadorNroTransaccion);
-      objCliente[i]->setCantidadDeTransacciones(*pTempCantidadDeTrasacciones);
-      objCliente[i]->setDineroEnCuenta(*pDineroEnCuentaTemp);
-    } else {
-      std::cout << "No existe el cliente nro. " << *pNumeroDeClienteElegido
-                << " o esta inactivo" << '\n';
+      *pChequeoDeExistencia = true;
     }
+  }
+  if (*pChequeoDeExistencia) {
+    for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
+    /*- Se compara cada lugar del array buscando una coincidencia con el numero
+      que ingreso el usuario.
+    - Se chequea si el cliente existe y si esta activo.*/
+      if (*pNumeroDeClienteElegido == objCliente[i]->getNumeroDeCliente() &&
+          objCliente[i]->getEstadoDelCliente()) {
+        // Se hace lo siguiente para poder usar '++'
+        int tempCantidadDeTrasancciones =
+            objCliente[i]->getCantidadDeTransacciones();
+        int *pTempCantidadDeTrasacciones = &tempCantidadDeTrasancciones;
+
+        ++*pTempCantidadDeTrasacciones;
+
+        float dineroEnCuentaTemp = objCliente[i]->getDineroEnCuenta();
+        float *pDineroEnCuentaTemp = &dineroEnCuentaTemp;
+
+        objCliente[i]
+            ->objTransaccionCliente[*pTempCantidadDeTrasacciones]
+            .realizarExtraccion(pDineroEnCuentaTemp);
+        objCliente[i]
+            ->objTransaccionCliente[*pTempCantidadDeTrasacciones]
+            .setNumeroDeTransaccion(*pContadorNroTransaccion);
+        objCliente[i]->setCantidadDeTransacciones(*pTempCantidadDeTrasacciones);
+        objCliente[i]->setDineroEnCuenta(*pDineroEnCuentaTemp);
+      }
+    }
+  } else {
+    std::cout << "El usuario nro. " << *pNumeroDeClienteElegido << " no existe o esta inactivo.\n";
   }
 }
 
 void opcion4(Cliente *objCliente[20], int *pContadorCantidadCliente,
-             int *pContadorNroTransaccion) {}
+             int *pContadorNroTransaccion) {
+                int numeroDeClienteElegido = 0;
+  int *pNumeroDeClienteElegido = &numeroDeClienteElegido;
+
+  bool chequeoDeExistencia = false;
+  bool *pChequeoDeExistencia = &chequeoDeExistencia;
+
+  std::cout << "Deposito  de dinero.\n\n";
+  std::cout << "Ingrese el numero de cliente para realizar una deposito: ";
+  std::cin >> *pNumeroDeClienteElegido;
+  
+  // Chequeo previo para ver si el usuario existe
+  for (int i = 0; i <= *pContadorCantidadCliente; ++i){
+    if (*pNumeroDeClienteElegido == objCliente[i]->getNumeroDeCliente() &&
+        objCliente[i]->getEstadoDelCliente()) {
+      *pChequeoDeExistencia = true;
+    }
+  }
+  if (*pChequeoDeExistencia) {
+    for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
+    /*- Se compara cada lugar del array buscando una coincidencia con el numero
+      que ingreso el usuario.
+    - Se chequea si el cliente existe y si esta activo.*/
+      if (*pNumeroDeClienteElegido == objCliente[i]->getNumeroDeCliente() &&
+          objCliente[i]->getEstadoDelCliente()) {
+        // Se hace lo siguiente para poder usar '++'
+        int tempCantidadDeTrasancciones =
+            objCliente[i]->getCantidadDeTransacciones();
+        int *pTempCantidadDeTrasacciones = &tempCantidadDeTrasancciones;
+
+        ++*pTempCantidadDeTrasacciones;
+
+        float dineroEnCuentaTemp = objCliente[i]->getDineroEnCuenta();
+        float *pDineroEnCuentaTemp = &dineroEnCuentaTemp;
+
+        objCliente[i]
+            ->objTransaccionCliente[*pTempCantidadDeTrasacciones]
+            .realizarDeposito(pDineroEnCuentaTemp);
+        objCliente[i]
+            ->objTransaccionCliente[*pTempCantidadDeTrasacciones]
+            .setNumeroDeTransaccion(*pContadorNroTransaccion);
+        objCliente[i]->setCantidadDeTransacciones(*pTempCantidadDeTrasacciones);
+        objCliente[i]->setDineroEnCuenta(*pDineroEnCuentaTemp);
+      }
+    }
+  } else {
+    std::cout << "El usuario nro. " << *pNumeroDeClienteElegido << " no existe o esta inactivo.\n";
+  }
+}
 
 void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente) {
   int numeroDeClienteElegido = 0;
@@ -165,19 +230,6 @@ void incializarMenu() {
   int seleccionDelMenuPrincipal;
   int *pSeleccionDelMenuPrincipal = &seleccionDelMenuPrincipal;
 
-  /*
-  while (*pSeleccionDelUsuarioFinal == 's' || *pSeleccionDelUsuarioFinal == 'S')
-  { mostrarMenu(pSeleccionDelMenuPrincipal); std::cout << "Aca se termino de
-  ejecutar el menu\n"; std::cout << *pSeleccionDelMenuPrincipal; switch
-  (*pSeleccionDelMenuPrincipal){ case 1: std::cout << "Hola"; break;
-
-    default:
-      std::cout << "La opcion seleccionada no es valida.\n";
-      break;
-    }
-    *pSeleccionDelUsuarioFinal = 'n';
-  } */
-
   while (*pSeleccionDelUsuarioFinal == 's' ||
          *pSeleccionDelUsuarioFinal == 'S') {
     mostrarMenu(pSeleccionDelMenuPrincipal);
@@ -197,6 +249,7 @@ void incializarMenu() {
       break;
 
     case 4:
+      opcion4(objCliente, pContadorCantidadCliente, pContadorNroTransaccion);
       break;
 
     case 5:
