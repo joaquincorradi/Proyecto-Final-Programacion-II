@@ -3,7 +3,6 @@
   - El programa no sale cuando se elige la opcion 9.
   - Hacer el sistema de exportacion de archivos con fstream
   - Realizar chequeos de fechas
-  - Error al realizar deposito y extraccion
   - Al dar de baja sacar dinero en cuenta del cliente
   - Agregar funcion para reactivar cliente
 */
@@ -234,7 +233,7 @@ void incializarMenu() {
          *pSeleccionDelUsuarioFinal == 'S') {
     mostrarMenu(pSeleccionDelMenuPrincipal);
     std::cout << std::flush;
-    system("cls||clear");
+    system("cls||clear"); //para limpiar la terminal cada vez que ejecutamos una opcion
     switch (*pSeleccionDelMenuPrincipal) {
     case 1:
       opcion1(objCliente, pContadorCantidadCliente);
