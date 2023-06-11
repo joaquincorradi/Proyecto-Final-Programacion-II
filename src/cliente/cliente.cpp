@@ -126,3 +126,16 @@ void Cliente::listarTodosLosClientes() {
     std::cout << "inactivo.\n";
   }
 }
+
+void Cliente::reactivarCliente(){
+  std::cout << "Se procedera a dar de baja al cliente " << nombreDelCliente
+            << " " << apellidoDelCliente << '\n';
+  if (estadoDelCliente == false)
+  {
+    estadoDelCliente == true;
+    std::cout << "Se reactivo el cliente con exito " << '\n';
+  }else{
+    std::cout << "El cliente esta activo " << '\n';
+  }
+  
+}

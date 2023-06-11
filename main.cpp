@@ -81,6 +81,25 @@ void opcion2(Cliente *objCliente[20], int *pContadorCantidadCliente) {
   }
 }
 
+void reactivar(Cliente 8objCliente[20], int *pContadorCantidadCliente){
+ int eleccionDelUsuario = 0;
+  int *pEleccionDelUsuario = &eleccionDelUsuario;
+  bool noExisteElUsuario = false;
+  bool *pNoExisteElUsuario = &noExisteElUsuario;
+  for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
+    if (*pEleccionDelUsuario == objCliente[i]->getNumeroDeCliente() &&
+        objCliente[i]->getEstadoDelCliente()) {
+      --*objCliente[i];
+      *pNoExisteElUsuario = false;
+    }
+  }
+   if (!*pNoExisteElUsuario) {
+    std::cout << "El cliente ingresado ya existe o se encuentra activo. \n";
+  }
+
+
+}
+
 void opcion3(Cliente *objCliente[20], int *pContadorCantidadCliente,
              int *pContadorNroTransaccion) {
   int numeroDeClienteElegido = 0;

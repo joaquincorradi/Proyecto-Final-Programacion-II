@@ -44,6 +44,7 @@ public:
 
   void operator++();
   void operator--();
+  void reactivarCliente();
 
   void listarTodosLosClientes();
 
