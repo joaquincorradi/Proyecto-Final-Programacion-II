@@ -56,6 +56,7 @@ void Cliente::imprimirInformacionDelCliente() {
   } else {
     std::cout << "inactivo\n";
   }
+  std::cout << "- Dinero en cuenta: $" << dineroEnCuenta << '\n';
 }
 
 void Cliente::operator++() {
