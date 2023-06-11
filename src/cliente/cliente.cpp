@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-Cliente::Cliente(std::string _nombreDelCliente, std::string _apelllidoDelCliente, bool _estadoDelCliente, int _numeroDeCliente, float _dineroEnCuenta) : nombreDelCliente(_nombreDelCliente), apellidoDelCliente(_apelllidoDelCliente), estadoDelCliente(_estadoDelCliente), numeroDeCliente(_numeroDeCliente), dineroEnCuenta(_dineroEnCuenta) {}
+Cliente::Cliente(std::string _nombreDelCliente, std::string _apelllidoDelCliente, bool _estadoDelCliente, int _numeroDeCliente, float _dineroEnCuenta, int _cantidadDeTransacciones) : nombreDelCliente(_nombreDelCliente), apellidoDelCliente(_apelllidoDelCliente), estadoDelCliente(_estadoDelCliente), numeroDeCliente(_numeroDeCliente), dineroEnCuenta(_dineroEnCuenta), cantidadDeTransacciones(_cantidadDeTransacciones) {}
 
 int Cliente::getNumeroDeCliente() { return numeroDeCliente; }
 std::string Cliente::getNombreDelCliente() { return nombreDelCliente; }
@@ -15,6 +15,7 @@ bool Cliente::getClienteBlack() { return clienteBlack; }
 bool Cliente::getEstadoDelCliente() { return estadoDelCliente; }
 float Cliente::getDineroEnCuenta() { return dineroEnCuenta; }
 int Cliente::getCantidadDeTransacciones() { return cantidadDeTransacciones; }
+
 
 void Cliente::setNumeroDeCliente(int _numeroDelCliente) {
   numeroDeCliente = _numeroDelCliente;
@@ -140,5 +141,12 @@ void Cliente::reactivarCliente(){
     }
   } else {
     std::cout << "El cliente ya se encuentra activo.\n";
+  }
+}
+
+void Cliente::listarTransaccionesDelCliente() {
+  std::cout << "- Transacciones para el cliente " << nombreDelCliente << " " << apellidoDelCliente << ": \n";
+  for (int i = 0; i < cantidadDeTransacciones; ++i) {
+    objTransaccionCliente[i].listarTransaccion();
   }
 }

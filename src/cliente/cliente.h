@@ -19,7 +19,7 @@ private:
   int cantidadDeTransacciones;
 
 public:
-  Cliente(std::string, std::string, bool, int, float);
+  Cliente(std::string, std::string, bool, int, float, int);
 
   int getNumeroDeCliente();
   std::string getNombreDelCliente();
@@ -47,6 +47,7 @@ public:
   void reactivarCliente();
 
   void listarTodosLosClientes();
+  void listarTransaccionesDelCliente();
 
   Transaccion objTransaccionCliente[10];
 };

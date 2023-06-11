@@ -51,6 +51,9 @@ void Transaccion::realizarExtraccion(float *dineroEnCuenta) {
     *dineroEnCuenta -= *pMontoDeExtraccion;
     std::cout << "La extraccion se realizo con exito.\n";
     std::cout << "Dinero restante en cuenta: $" << *dineroEnCuenta << '\n';
+    montoDeTransaccion = *pMontoDeExtraccion;
+    extraccion = true;
+    deposito = false;
   } else {
     std::cout
         << "No hay suficiente monto en la cuenta para hacer la extraccion.\n";
@@ -77,4 +80,19 @@ void Transaccion::realizarDeposito(float *dineroEnCuenta) {
   *dineroEnCuenta += *pMontoDeDeposito;
   std::cout << "El deposito de realizo con exito.\n";
   std::cout << "Dinero en cuenta: $" << *dineroEnCuenta << '\n';
+  montoDeTransaccion = *pMontoDeDeposito;
+  extraccion = false;
+  deposito = true;
+}
+
+
+void Transaccion::listarTransaccion() {
+  std::cout << "\tTransacion nro. " << numeroDeTransaccion << ", ";
+  if (deposito) {
+    std::cout << "deposito ";
+  } else {
+    std::cout << "extraccion ";
+  }
+  std::cout << "por el monto de $" << montoDeTransaccion << " el dia " << diaDeTransaccion 
+            << " / " << mesDeTransaccion << " / " << anioDeTransaccion << '\n';
 }

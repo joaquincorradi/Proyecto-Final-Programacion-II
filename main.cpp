@@ -1,13 +1,13 @@
 /*
   To do:
-  - Crear funcion 8 (listar todas las transacciones por cliente).
+  - Crear funcion 8 (listar todas las transacciones por cliente). Por ahora
+  solo imprime los depositos.
   - Crear funcion 9 (filtrar transacciones).
-  - Agregar la cantidad de dinero que tiene un cliente en su cuenta al mostrar
-    un cliente que fue filtrado por numero de cliente.
-  - El programa no sale cuando se elige la opcion 9.
+  - El programa no sale cuando se elige la opcion 10.
   - Hacer el sistema de exportacion de archivos con fstream.
-  - Realizar chequeos de fechas
-  - Acomodar los nombres para que la funcion de reactivar sea la numero 3.
+  - Realizar catch try para ints.
+  - Realizar chequeos de fechas.
+  - Chequear que palabra ingresa el usuario como categoria.
 */
 
 #include "src/cliente/cliente.h"
@@ -25,6 +25,7 @@ void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente,
              int *pContadorNroTransaccion);
 void opcion6(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion7(Cliente *objCliente[20], int *pContadorCantidadCliente);
+void opcion8(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void incializarMenu();
 
 int main() { incializarMenu(); }
@@ -136,11 +137,15 @@ void opcion4(Cliente *objCliente[20], int *pContadorCantidadCliente,
       if (*pNumeroDeClienteElegido == objCliente[i]->getNumeroDeCliente() &&
           objCliente[i]->getEstadoDelCliente()) {
         // Se hace lo siguiente para poder usar '++'
+        /*tempCantidadDeTransacciones es el contador interno de la clase
+        para aumentar la posicion del objeto transaccion que esta adentro
+        de ella*/
         int tempCantidadDeTrasancciones =
             objCliente[i]->getCantidadDeTransacciones();
         int *pTempCantidadDeTrasacciones = &tempCantidadDeTrasancciones;
 
         ++*pTempCantidadDeTrasacciones;
+        ++*pContadorNroTransaccion;
 
         float dineroEnCuentaTemp = objCliente[i]->getDineroEnCuenta();
         float *pDineroEnCuentaTemp = &dineroEnCuentaTemp;
@@ -192,6 +197,7 @@ void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente,
         int *pTempCantidadDeTrasacciones = &tempCantidadDeTrasancciones;
 
         ++*pTempCantidadDeTrasacciones;
+        ++*pContadorNroTransaccion;
 
         float dineroEnCuentaTemp = objCliente[i]->getDineroEnCuenta();
         float *pDineroEnCuentaTemp = &dineroEnCuentaTemp;
@@ -235,10 +241,16 @@ void opcion7(Cliente *objCliente[20], int *pContadorCantidadCliente) {
   }
 }
 
+void opcion8(Cliente *objCliente[20], int *pContadorCantidadCliente) {
+  for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
+    objCliente[i]->listarTransaccionesDelCliente();
+  }
+}
+
 void incializarMenu() {
   Cliente *objCliente[20];
   for (int i = 0; i < 20; ++i) {
-    objCliente[i] = new Cliente("sin", "datos", false, i + 1, 0.0);
+    objCliente[i] = new Cliente("sin", "datos", false, i + 1, 0.0, -1);
   }
   // Variables para el menu
   char seleccionDelUsuarioFinal = 's';
@@ -278,12 +290,10 @@ void incializarMenu() {
 
     case 4:
       opcion4(objCliente, pContadorCantidadCliente, pContadorNroTransaccion);
-
       break;
 
     case 5:
       opcion5(objCliente, pContadorCantidadCliente, pContadorNroTransaccion);
-
       break;
 
     case 6:
@@ -296,6 +306,7 @@ void incializarMenu() {
       break;
 
     case 8:
+      opcion8(objCliente, pContadorCantidadCliente);
       break;
 
     case 9:

@@ -32,6 +32,8 @@ public:
 
   void realizarExtraccion(float *);
   void realizarDeposito(float *);
+
+  void listarTransaccion();
 };
 
 #endif
