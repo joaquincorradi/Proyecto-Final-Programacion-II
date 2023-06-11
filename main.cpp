@@ -1,11 +1,12 @@
 /*
   To do:
+  - Crear funcion 8 (listar todas las transacciones por cliente).
+  - Crear funcion 9 (filtrar transacciones).
+  - Agregar la cantidad de dinero que tiene un cliente en su cuenta al mostrar
+    un cliente que fue filtrado por numero de cliente.
   - El programa no sale cuando se elige la opcion 9.
   - Hacer el sistema de exportacion de archivos con fstream.
   - Realizar chequeos de fechas
-  - Al dar de baja sacar dinero en cuenta del cliente
-  - Agregar funcion para reactivar cliente
-  -hacer funcionar funcion de reactivar 
   - Acomodar los nombres para que la funcion de reactivar sea la numero 3.
 */
 
@@ -17,13 +18,13 @@
 void mostrarMenu(int *pSeleccionDelMenuPrincipal);
 void opcion1(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion2(Cliente *objCliente[20], int *pContadorCantidadCliente);
-void opcion3(Cliente *objCliente[20], int *pContadorCantidadCliente,
-             int *pContadorNroTransaccion);
+void opcion3(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion4(Cliente *objCliente[20], int *pContadorCantidadCliente,
              int *pContadorNroTransaccion);
-void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente);
+void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente,
+             int *pContadorNroTransaccion);
 void opcion6(Cliente *objCliente[20], int *pContadorCantidadCliente);
-void opcion10(Cliente *objCliente[20], int *pContadorCantidadCliente);
+void opcion7(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void incializarMenu();
 
 int main() { incializarMenu(); }
@@ -45,14 +46,14 @@ void mostrarMenu(int *pSeleccionDelMenuPrincipal) {
   std::cout << "Bienvenido. Para continuar seleccione una opcion:\n\n";
   std::cout << "[1] Alta de cliente.\n";
   std::cout << "[2] Baja de cliente.\n";
-  std::cout << "[3] Generar extraccion.\n";
-  std::cout << "[4] Generar deposito.\n";
-  std::cout << "[5] Consultar cliente por numero de cliente.\n";
-  std::cout << "[6] Listar todos los clientes.\n";
-  std::cout << "[7] Listar transacciones por clientes.\n";
-  std::cout << "[8] Filtrar transacciones y depositos por periodo.\n";
-  std::cout << "[9] Salir.\n";
-  std::cout << "[10] Reactivar cliente\n\n";
+  std::cout << "[3] Reactivar cliente.\n";
+  std::cout << "[4] Generar extraccion.\n";
+  std::cout << "[5] Generar deposito.\n";
+  std::cout << "[6] Consultar cliente por numero de cliente.\n";
+  std::cout << "[7] Listar todos los clientes.\n";
+  std::cout << "[8] Listar transacciones por clientes.\n";
+  std::cout << "[9] Filtrar transacciones y depositos por periodo.\n";
+  std::cout << "[10] Salir.\n\n";
   std::cout
       << "--------------------------------------------------------------\n";
   std::cout << "Ingrese su eleccion: ";
@@ -86,7 +87,7 @@ void opcion2(Cliente *objCliente[20], int *pContadorCantidadCliente) {
   }
 }
 
-void opcion10(Cliente *objCliente[20], int *pContadorCantidadCliente){
+void opcion3(Cliente *objCliente[20], int *pContadorCantidadCliente){
   int eleccionDelUsuario = 0;
   int *pEleccionDelUsuario = &eleccionDelUsuario;
 
@@ -108,7 +109,7 @@ void opcion10(Cliente *objCliente[20], int *pContadorCantidadCliente){
   }
 }
 
-void opcion3(Cliente *objCliente[20], int *pContadorCantidadCliente,
+void opcion4(Cliente *objCliente[20], int *pContadorCantidadCliente,
              int *pContadorNroTransaccion) {
   int numeroDeClienteElegido = 0;
   int *pNumeroDeClienteElegido = &numeroDeClienteElegido;
@@ -159,7 +160,7 @@ void opcion3(Cliente *objCliente[20], int *pContadorCantidadCliente,
   }
 }
 
-void opcion4(Cliente *objCliente[20], int *pContadorCantidadCliente,
+void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente,
              int *pContadorNroTransaccion) {
                 int numeroDeClienteElegido = 0;
   int *pNumeroDeClienteElegido = &numeroDeClienteElegido;
@@ -210,7 +211,7 @@ void opcion4(Cliente *objCliente[20], int *pContadorCantidadCliente,
   }
 }
 
-void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente) {
+void opcion6(Cliente *objCliente[20], int *pContadorCantidadCliente) {
   int numeroDeClienteElegido = 0;
   std::cout << "Consulta de cliente por numero de cliente.\n\n";
   std::cout << "Ingrese un numero de cliente para consultar: ";
@@ -228,7 +229,7 @@ void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente) {
   }
 }
 
-void opcion6(Cliente *objCliente[20], int *pContadorCantidadCliente) {
+void opcion7(Cliente *objCliente[20], int *pContadorCantidadCliente) {
   for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
     objCliente[i]->listarTodosLosClientes();
   }
@@ -271,33 +272,37 @@ void incializarMenu() {
       break;
 
     case 3:
-      opcion3(objCliente, pContadorCantidadCliente, pContadorNroTransaccion);
+      opcion3(objCliente, pContadorCantidadCliente);
+
       break;
 
     case 4:
       opcion4(objCliente, pContadorCantidadCliente, pContadorNroTransaccion);
+
       break;
 
     case 5:
-      opcion5(objCliente, pContadorCantidadCliente);
+      opcion5(objCliente, pContadorCantidadCliente, pContadorNroTransaccion);
+
       break;
 
     case 6:
       opcion6(objCliente, pContadorCantidadCliente);
+
       break;
 
     case 7:
+      opcion7(objCliente, pContadorCantidadCliente);
       break;
 
     case 8:
       break;
 
-    case 9: // no funciona
-      *pQuiereSalir = true;
+    case 9:
       break;
 
-    case 10:
-      opcion10(objCliente, pContadorCantidadCliente);
+    case 10:  // no funciona
+      *pQuiereSalir = true;
       break;
 
     default:
