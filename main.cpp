@@ -1,11 +1,14 @@
 /*
   To do:
   - El programa no sale cuando se elige la opcion 9.
-  - Hacer el sistema de exportacion de archivos con fstream
+  - Hacer el sistema de exportacion de archivos con fstream.
   - Realizar chequeos de fechas
   - Al dar de baja sacar dinero en cuenta del cliente
   - Agregar funcion para reactivar cliente
+  -hacer funcionar funcion de reactivar 
+  - Acomodar los nombres para que la funcion de reactivar sea la numero 3.
 */
+
 #include "src/cliente/cliente.h"
 
 #include <cstdlib>
@@ -20,6 +23,7 @@ void opcion4(Cliente *objCliente[20], int *pContadorCantidadCliente,
              int *pContadorNroTransaccion);
 void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion6(Cliente *objCliente[20], int *pContadorCantidadCliente);
+void opcion10(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void incializarMenu();
 
 int main() { incializarMenu(); }
@@ -47,7 +51,8 @@ void mostrarMenu(int *pSeleccionDelMenuPrincipal) {
   std::cout << "[6] Listar todos los clientes.\n";
   std::cout << "[7] Listar transacciones por clientes.\n";
   std::cout << "[8] Filtrar transacciones y depositos por periodo.\n";
-  std::cout << "[9] Salir.\n\n";
+  std::cout << "[9] Salir.\n";
+  std::cout << "[10] Reactivar cliente\n\n";
   std::cout
       << "--------------------------------------------------------------\n";
   std::cout << "Ingrese su eleccion: ";
@@ -81,23 +86,26 @@ void opcion2(Cliente *objCliente[20], int *pContadorCantidadCliente) {
   }
 }
 
-void reactivar(Cliente 8objCliente[20], int *pContadorCantidadCliente){
- int eleccionDelUsuario = 0;
+void opcion10(Cliente *objCliente[20], int *pContadorCantidadCliente){
+  int eleccionDelUsuario = 0;
   int *pEleccionDelUsuario = &eleccionDelUsuario;
-  bool noExisteElUsuario = false;
-  bool *pNoExisteElUsuario = &noExisteElUsuario;
+
+  bool existeElUsuario = false;
+  bool *pExisteElUsuario = &existeElUsuario;
+
+  std::cout << "Ingrese numero del usuario que desea reactivar: ";
+  std::cin >> *pEleccionDelUsuario;
+
   for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
-    if (*pEleccionDelUsuario == objCliente[i]->getNumeroDeCliente() &&
-        objCliente[i]->getEstadoDelCliente()) {
-      --*objCliente[i];
-      *pNoExisteElUsuario = false;
-    }
+    // A continuacion busca coincidencia con el cliente que ingreso el usuario
+    if (*pEleccionDelUsuario == objCliente[i]->getNumeroDeCliente()) {
+      objCliente[i]->reactivarCliente();
+      *pExisteElUsuario = true;
+    } 
   }
-   if (!*pNoExisteElUsuario) {
-    std::cout << "El cliente ingresado ya existe o se encuentra activo. \n";
+  if (!*pExisteElUsuario) {
+    std::cout << "El cliente ingresado no existe.\n";
   }
-
-
 }
 
 void opcion3(Cliente *objCliente[20], int *pContadorCantidadCliente,
@@ -286,6 +294,10 @@ void incializarMenu() {
 
     case 9: // no funciona
       *pQuiereSalir = true;
+      break;
+
+    case 10:
+      opcion10(objCliente, pContadorCantidadCliente);
       break;
 
     default:
