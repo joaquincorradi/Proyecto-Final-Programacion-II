@@ -1,7 +1,7 @@
 /*
   To do:
-  - Crear funcion 8 (listar todas las transacciones por cliente). Por ahora
-  solo imprime los depositos.
+  - Crear funcion 8 (listar todas las transacciones por cliente). Imprime las transacciones
+  pero va un lugar atrasado.
   - Crear funcion 9 (filtrar transacciones).
   - El programa no sale cuando se elige la opcion 10.
   - Hacer el sistema de exportacion de archivos con fstream.

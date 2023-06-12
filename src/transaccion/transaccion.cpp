@@ -52,14 +52,14 @@ void Transaccion::realizarExtraccion(float *dineroEnCuenta) {
     std::cout << "La extraccion se realizo con exito.\n";
     std::cout << "Dinero restante en cuenta: $" << *dineroEnCuenta << '\n';
     montoDeTransaccion = *pMontoDeExtraccion;
-    extraccion = true;
-    deposito = false;
   } else {
     std::cout
         << "No hay suficiente monto en la cuenta para hacer la extraccion.\n";
     std::cout << "$" << -(*dineroEnCuenta - *pMontoDeExtraccion)
               << " faltante(s) para poder realizar esta accion.\n";
   }
+  extraccion = true;
+  deposito = false;
 }
 
 void Transaccion::realizarDeposito(float *dineroEnCuenta) {
@@ -88,7 +88,7 @@ void Transaccion::realizarDeposito(float *dineroEnCuenta) {
 
 void Transaccion::listarTransaccion() {
   std::cout << "\tTransacion nro. " << numeroDeTransaccion << ", ";
-  if (deposito) {
+  if (deposito && !extraccion) {
     std::cout << "deposito ";
   } else {
     std::cout << "extraccion ";

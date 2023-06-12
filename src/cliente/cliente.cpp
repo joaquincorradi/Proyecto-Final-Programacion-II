@@ -146,7 +146,7 @@ void Cliente::reactivarCliente(){
 
 void Cliente::listarTransaccionesDelCliente() {
   std::cout << "- Transacciones para el cliente " << nombreDelCliente << " " << apellidoDelCliente << ": \n";
-  for (int i = 0; i < cantidadDeTransacciones; ++i) {
+  for (int i = 0; i <= cantidadDeTransacciones ; ++i) {
     objTransaccionCliente[i].listarTransaccion();
   }
 }
