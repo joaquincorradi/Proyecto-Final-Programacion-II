@@ -85,7 +85,6 @@ void Transaccion::realizarDeposito(float *dineroEnCuenta) {
   deposito = true;
 }
 
-
 void Transaccion::listarTransaccion() {
   std::cout << "\tTransacion nro. " << numeroDeTransaccion << ", ";
   if (deposito && !extraccion) {
@@ -93,8 +92,9 @@ void Transaccion::listarTransaccion() {
   } else {
     std::cout << "extraccion ";
   }
-  std::cout << "por el monto de $" << montoDeTransaccion << " el dia " << diaDeTransaccion 
-            << " / " << mesDeTransaccion << " / " << anioDeTransaccion << '\n';
+  std::cout << "por el monto de $" << montoDeTransaccion << " el dia "
+            << diaDeTransaccion << " / " << mesDeTransaccion << " / "
+            << anioDeTransaccion << '\n';
 }
 
 void Transaccion::listarSeisMeses(int *pMesActual, int *pAnioActual) {
@@ -102,7 +102,7 @@ void Transaccion::listarSeisMeses(int *pMesActual, int *pAnioActual) {
   int *pTempMes = &tempMes, *pTempAnio = &tempAnio;
 
   *pTempMes -= -6;
-  
+
   if (*pTempMes <= 0) {
     *pTempMes += 12;
     *pTempAnio -= 1;

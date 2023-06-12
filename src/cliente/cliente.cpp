@@ -3,7 +3,15 @@
 #include <iostream>
 #include <string>
 
-Cliente::Cliente(std::string _nombreDelCliente, std::string _apelllidoDelCliente, bool _estadoDelCliente, int _numeroDeCliente, float _dineroEnCuenta, int _cantidadDeTransacciones) : nombreDelCliente(_nombreDelCliente), apellidoDelCliente(_apelllidoDelCliente), estadoDelCliente(_estadoDelCliente), numeroDeCliente(_numeroDeCliente), dineroEnCuenta(_dineroEnCuenta), cantidadDeTransacciones(_cantidadDeTransacciones) {}
+Cliente::Cliente(std::string _nombreDelCliente,
+                 std::string _apelllidoDelCliente, bool _estadoDelCliente,
+                 int _numeroDeCliente, float _dineroEnCuenta,
+                 int _cantidadDeTransacciones)
+    : nombreDelCliente(_nombreDelCliente),
+      apellidoDelCliente(_apelllidoDelCliente),
+      estadoDelCliente(_estadoDelCliente), numeroDeCliente(_numeroDeCliente),
+      dineroEnCuenta(_dineroEnCuenta),
+      cantidadDeTransacciones(_cantidadDeTransacciones) {}
 
 int Cliente::getNumeroDeCliente() { return numeroDeCliente; }
 std::string Cliente::getNombreDelCliente() { return nombreDelCliente; }
@@ -15,7 +23,6 @@ bool Cliente::getClienteBlack() { return clienteBlack; }
 bool Cliente::getEstadoDelCliente() { return estadoDelCliente; }
 float Cliente::getDineroEnCuenta() { return dineroEnCuenta; }
 int Cliente::getCantidadDeTransacciones() { return cantidadDeTransacciones; }
-
 
 void Cliente::setNumeroDeCliente(int _numeroDelCliente) {
   numeroDeCliente = _numeroDelCliente;
@@ -32,11 +39,12 @@ void Cliente::setAnioDeIngresoDelCliente(int _anioDeIngresoDelCliente) {
 void Cliente::setEstadoDelCliente(bool _estadoDelCliente) {
   estadoDelCliente = _estadoDelCliente;
 }
-void Cliente::setDineroEnCuenta(float _dineroEnCuenta) { dineroEnCuenta = _dineroEnCuenta; }
+void Cliente::setDineroEnCuenta(float _dineroEnCuenta) {
+  dineroEnCuenta = _dineroEnCuenta;
+}
 void Cliente::setCantidadDeTransacciones(int _cantidadDeTransacciones) {
   cantidadDeTransacciones = _cantidadDeTransacciones;
 }
-
 
 void Cliente::imprimirInformacionDelCliente() {
   std::cout << "- Cliente numero: " << numeroDeCliente << '\n';
@@ -129,10 +137,10 @@ void Cliente::listarTodosLosClientes() {
   }
 }
 
-void Cliente::reactivarCliente(){
+void Cliente::reactivarCliente() {
   if (estadoDelCliente == false) {
     std::cout << "Se procedera a reactivar al cliente " << nombreDelCliente
-            << " " << apellidoDelCliente << '\n';
+              << " " << apellidoDelCliente << '\n';
     estadoDelCliente = true;
     if (estadoDelCliente) {
       std::cout << "Se reactivo el cliente con exito.\n";
@@ -145,15 +153,18 @@ void Cliente::reactivarCliente(){
 }
 
 void Cliente::listarTransaccionesDelCliente() {
-  std::cout << "- Transacciones para el cliente " << nombreDelCliente << " " << apellidoDelCliente << ": \n";
-  for (int i = 0; i <= cantidadDeTransacciones ; ++i) {
+  std::cout << "- Transacciones para el cliente " << nombreDelCliente << " "
+            << apellidoDelCliente << ": \n";
+  for (int i = 0; i <= cantidadDeTransacciones; ++i) {
     objTransaccionCliente[i].listarTransaccion();
   }
 }
 
-void Cliente::listarTransaccionesDelClienteSeisMeses(int *pMesActual, int *pAnioActual) {
-  std::cout << "- Transacciones para el cliente " << nombreDelCliente << " " << apellidoDelCliente << " en los ultimos seis meses: \n";
-  for (int i = 0; i <= cantidadDeTransacciones ; ++i) {
+void Cliente::listarTransaccionesDelClienteSeisMeses(int *pMesActual,
+                                                     int *pAnioActual) {
+  std::cout << "- Transacciones para el cliente " << nombreDelCliente << " "
+            << apellidoDelCliente << " en los ultimos seis meses: \n";
+  for (int i = 0; i <= cantidadDeTransacciones; ++i) {
     objTransaccionCliente[i].listarSeisMeses(pMesActual, pAnioActual);
   }
 }
