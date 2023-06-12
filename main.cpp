@@ -1,13 +1,12 @@
 /*
   To do:
-  - Crear funcion 8 (listar todas las transacciones por cliente). Imprime las transacciones
-  pero va un lugar atrasado.
   - Crear funcion 9 (filtrar transacciones).
   - El programa no sale cuando se elige la opcion 10.
   - Hacer el sistema de exportacion de archivos con fstream.
   - Realizar catch try para ints.
   - Realizar chequeos de fechas.
   - Chequear que palabra ingresa el usuario como categoria.
+  - Crear tarjeta de credito
 */
 
 #include "src/cliente/cliente.h"
@@ -16,6 +15,7 @@
 #include <iostream>
 
 void mostrarMenu(int *pSeleccionDelMenuPrincipal);
+void obtenerFechaDeHoy(int *diaActual, int *mesActual, int *anioActual);
 void opcion1(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion2(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion3(Cliente *objCliente[20], int *pContadorCantidadCliente);
@@ -26,6 +26,7 @@ void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente,
 void opcion6(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion7(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion8(Cliente *objCliente[20], int *pContadorCantidadCliente);
+void opcion9(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void incializarMenu();
 
 int main() { incializarMenu(); }
@@ -52,13 +53,41 @@ void mostrarMenu(int *pSeleccionDelMenuPrincipal) {
   std::cout << "[5] Generar deposito.\n";
   std::cout << "[6] Consultar cliente por numero de cliente.\n";
   std::cout << "[7] Listar todos los clientes.\n";
-  std::cout << "[8] Listar transacciones por clientes.\n";
+  std::cout << "[8] Listar transacciones por numero de clientes.\n";
   std::cout << "[9] Filtrar transacciones y depositos por periodo.\n";
   std::cout << "[10] Salir.\n\n";
   std::cout
       << "--------------------------------------------------------------\n";
   std::cout << "Ingrese su eleccion: ";
   std::cin >> *pSeleccionDelMenuPrincipal;
+}
+
+void obtenerFechaDeHoy(int *diaActual, int *mesActual, int *anioActual) {
+  std::cout << "Bienvenido. Antes de continuar ingrese la fecha de hoy.\n";
+
+  std::cout << "Ingrese el dia de hoy: ";
+  std::cin >> *diaActual;
+  while (*diaActual <= 0 || *diaActual > 31) {
+    std::cout << "\nIngrese un dia valido.\n";
+    std::cout << "Ingrese el dia de hoy: ";
+    std::cin >> *diaActual;
+  }
+
+  std::cout << "Ingrese el mes actual: ";
+  std::cin >> *mesActual;
+  while (*mesActual <= 0 || *mesActual > 12) {
+    std::cout << "\nIngrese un mes valido.\n";
+    std::cout << "Ingrese el mes actual: ";
+    std::cin >> *mesActual;
+  }
+
+  std::cout << "Ingrese el anio actual: ";
+  std::cin >> *anioActual;
+  while (*anioActual < 1900 || *anioActual > 2023) {
+    std::cout << "\nIngrese una fecha valida. Nuestros datos van del 1900 al 2023.\n";
+    std::cout << "Ingrese el anio actual: ";
+    std::cin >> *anioActual;
+  }
 }
 
 void opcion1(Cliente *objCliente[20], int *pContadorCantidadCliente) {
@@ -167,7 +196,7 @@ void opcion4(Cliente *objCliente[20], int *pContadorCantidadCliente,
 
 void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente,
              int *pContadorNroTransaccion) {
-                int numeroDeClienteElegido = 0;
+  int numeroDeClienteElegido = 0;
   int *pNumeroDeClienteElegido = &numeroDeClienteElegido;
 
   bool chequeoDeExistencia = false;
@@ -218,7 +247,7 @@ void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente,
 }
 
 void opcion6(Cliente *objCliente[20], int *pContadorCantidadCliente) {
-  int numeroDeClienteElegido = 0;
+  int numeroDeClienteElegido = 0; // hacer de esta variable un puntero
   std::cout << "Consulta de cliente por numero de cliente.\n\n";
   std::cout << "Ingrese un numero de cliente para consultar: ";
   std::cin >> numeroDeClienteElegido;
@@ -242,8 +271,59 @@ void opcion7(Cliente *objCliente[20], int *pContadorCantidadCliente) {
 }
 
 void opcion8(Cliente *objCliente[20], int *pContadorCantidadCliente) {
-  for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
-    objCliente[i]->listarTransaccionesDelCliente();
+  int numeroDeClienteElegido = 0;
+  int *pNumeroDeClienteElegido = &numeroDeClienteElegido;
+
+  bool chequeoDeExistencia = false;
+  bool *pChequeoDeExistencia = &chequeoDeExistencia;
+  
+  std::cout << "Consulta de transacciones por numero de cliente.\n\n";
+  std::cout << "Ingrese un numero de cliente para consultar: ";
+  std::cin >> *pNumeroDeClienteElegido;
+
+  for (int i = 0; i <= *pContadorCantidadCliente; ++i){
+    if (*pNumeroDeClienteElegido == objCliente[i]->getNumeroDeCliente()) {
+      *pChequeoDeExistencia = true;
+    }
+  }
+  if (*pChequeoDeExistencia) {
+    for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
+      if (*pNumeroDeClienteElegido == objCliente[i]->getNumeroDeCliente()) {
+        std::cout << "Mostrando transacciones para el cliente nro. " << objCliente[i]->getNumeroDeCliente() << ", " << objCliente[i]->getNombreDelCliente() << " " << objCliente[i]->getApellidoDelCliente() << ":\n";
+        objCliente[i]->listarTransaccionesDelCliente();
+      } 
+    }
+  } else {
+    std::cout << "El usuario nro. " << *pNumeroDeClienteElegido << " no existe.\n";
+    }
+}
+
+void opcion9(Cliente *objCliente[20], int *pContadorCantidadCliente) {
+  int numeroDeClienteElegido = 0;
+  int *pNumeroDeClienteElegido = &numeroDeClienteElegido;
+
+  bool chequeoDeExistencia = false;
+  bool *pChequeoDeExistencia = &chequeoDeExistencia;
+
+  int eleccionDelUsuarioSubmenu = 0;
+  int *pEleccionDelUsuarioSubmenu = &eleccionDelUsuarioSubmenu;
+
+  std::cout << "Filtrar transacciones y depositos por periodo.\n";
+  std::cout << "Para continuar seleccione una opcion:\n\n";
+  std::cout << "[1] Mostrar transacciones en los ultimos 6 meses.\n";
+  std::cout << "[2] Filtrar transacciones por anio\n";
+  std::cout << "[3] Mostrar todas las transacciones.\n\n";
+  std::cout << "Ingrese su eleccion: ";
+  std::cin >> *pEleccionDelUsuarioSubmenu;
+
+  switch (*pEleccionDelUsuarioSubmenu)
+  {
+  case 1:
+    break;
+  
+  default:
+    std::cout << "La opcion seleccionada no es valida.\n";
+    break;
   }
 }
 
@@ -268,6 +348,11 @@ void incializarMenu() {
 
   int seleccionDelMenuPrincipal;
   int *pSeleccionDelMenuPrincipal = &seleccionDelMenuPrincipal;
+
+  int diaActual = 1, mesActual = 1, anioActual = 1900;
+  int *pDiaActual = &diaActual, *pMesActual = &mesActual, *pAnioActual = &anioActual;
+
+  obtenerFechaDeHoy(pDiaActual, pMesActual, pAnioActual);
 
   while (*pSeleccionDelUsuarioFinal == 's' ||
          *pSeleccionDelUsuarioFinal == 'S') {
