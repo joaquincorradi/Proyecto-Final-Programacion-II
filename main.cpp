@@ -1,12 +1,13 @@
 /*
-  To do:
+  To do list:
   - Crear funcion 9 (filtrar transacciones).
   - El programa no sale cuando se elige la opcion 10.
   - Hacer el sistema de exportacion de archivos con fstream.
-  - Realizar catch try para ints.
+  - Realizar try catch para ints.
   - Realizar chequeos de fechas.
   - Chequear que palabra ingresa el usuario como categoria.
-  - Crear tarjeta de credito
+  - Se puede extaer plata del futuro en el pasado.
+  - Crear tarjeta de credito.
 */
 
 #include "src/cliente/cliente.h"
@@ -26,7 +27,7 @@ void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente,
 void opcion6(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion7(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion8(Cliente *objCliente[20], int *pContadorCantidadCliente);
-void opcion9(Cliente *objCliente[20], int *pContadorCantidadCliente);
+void opcion9(Cliente *objCliente[20], int *pContadorCantidadCliente, int *mesActual, int *anioActual);
 void incializarMenu();
 
 int main() { incializarMenu(); }
@@ -298,7 +299,7 @@ void opcion8(Cliente *objCliente[20], int *pContadorCantidadCliente) {
     }
 }
 
-void opcion9(Cliente *objCliente[20], int *pContadorCantidadCliente) {
+void opcion9(Cliente *objCliente[20], int *pContadorCantidadCliente, int *mesActual, int *anioActual) {
   int numeroDeClienteElegido = 0;
   int *pNumeroDeClienteElegido = &numeroDeClienteElegido;
 
@@ -319,6 +320,9 @@ void opcion9(Cliente *objCliente[20], int *pContadorCantidadCliente) {
   switch (*pEleccionDelUsuarioSubmenu)
   {
   case 1:
+    for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
+      objCliente[i]->listarTransaccionesDelClienteSeisMeses(mesActual, anioActual);
+    }
     break;
   
   default:
@@ -395,6 +399,7 @@ void incializarMenu() {
       break;
 
     case 9:
+      opcion9(objCliente, pContadorCantidadCliente, pMesActual, pAnioActual);
       break;
 
     case 10:  // no funciona

@@ -48,6 +48,7 @@ public:
 
   void listarTodosLosClientes();
   void listarTransaccionesDelCliente();
+  void listarTransaccionesDelClienteSeisMeses(int*, int*);
 
   Transaccion objTransaccionCliente[10];
 };

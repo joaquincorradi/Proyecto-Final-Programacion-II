@@ -150,3 +150,10 @@ void Cliente::listarTransaccionesDelCliente() {
     objTransaccionCliente[i].listarTransaccion();
   }
 }
+
+void Cliente::listarTransaccionesDelClienteSeisMeses(int *pMesActual, int *pAnioActual) {
+  std::cout << "- Transacciones para el cliente " << nombreDelCliente << " " << apellidoDelCliente << " en los ultimos seis meses: \n";
+  for (int i = 0; i <= cantidadDeTransacciones ; ++i) {
+    objTransaccionCliente[i].listarSeisMeses(pMesActual, pAnioActual);
+  }
+}

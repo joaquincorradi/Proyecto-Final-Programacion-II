@@ -3,6 +3,7 @@
 
 class Transaccion {
 private:
+//atributos
   int numeroDeTransaccion;
   float montoDeTransaccion;
   bool extraccion;
@@ -12,6 +13,7 @@ private:
   int anioDeTransaccion;
 
 public:
+//metodos son funciones
   Transaccion();
   Transaccion(int);
   int getNumeroDeTransaccion();
@@ -30,10 +32,13 @@ public:
   void setMesDeTransaccion(int);
   void setAnioDeTransaccion(int);
 
+
   void realizarExtraccion(float *);
   void realizarDeposito(float *);
 
   void listarTransaccion();
+
+  void listarSeisMeses(int*, int*);
 };
 
 #endif

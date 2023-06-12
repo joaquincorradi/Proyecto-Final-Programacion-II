@@ -96,3 +96,19 @@ void Transaccion::listarTransaccion() {
   std::cout << "por el monto de $" << montoDeTransaccion << " el dia " << diaDeTransaccion 
             << " / " << mesDeTransaccion << " / " << anioDeTransaccion << '\n';
 }
+
+void Transaccion::listarSeisMeses(int *pMesActual, int *pAnioActual) {
+  int tempMes = *pMesActual, tempAnio = *pAnioActual;
+  int *pTempMes = &tempMes, *pTempAnio = &tempAnio;
+
+  *pTempMes -= -6;
+  
+  if (*pTempMes <= 0) {
+    *pTempMes += 12;
+    *pTempAnio -= 1;
+  }
+
+  if (mesDeTransaccion == *pTempMes && anioDeTransaccion == *pTempAnio) {
+    listarTransaccion();
+  }
+}
