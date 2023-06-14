@@ -1,6 +1,8 @@
 #ifndef PROYECTOFINAL_SRC_ARCHIVO_ARCHIVO_H_
 #define PROYECTOFINAL_SRC_ARCHIVO_ARCHIVO_H_
 
+#include "../cliente/cliente.h"
+
 #include <fstream>
 #include <string>
 
@@ -14,7 +16,7 @@ public:
   Archivo(std::string, std::string);
   void iniciarNuevoArchivo();
   void actualizarArchivo(int, int, int, std::string, int, int, int);
-  void cargarDesdeArchivo();
+  void cargarDesdeArchivo(int *, Cliente *objCliente[20]);
 };
 
 #endif

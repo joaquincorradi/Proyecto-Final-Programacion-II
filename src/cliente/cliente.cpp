@@ -33,6 +33,12 @@ void Cliente::setNombreDelCliente(std::string _nombreDelCliente) {
 void Cliente::setApellidoDelCliente(std::string _apellidoDelCliente) {
   apellidoDelCliente = _apellidoDelCliente;
 }
+
+void Cliente::setClientePlata(bool _clientePlata) { clientePlata = _clientePlata; }
+void Cliente::setClienteOro(bool _clienteOro) { clienteOro = _clienteOro; }
+void Cliente::setClienteBlack(bool _clienteBlack) { clienteBlack = _clienteBlack; }
+
+
 void Cliente::setAnioDeIngresoDelCliente(int _anioDeIngresoDelCliente) {
   anioDeIngresoDelCliente = _anioDeIngresoDelCliente;
 }

@@ -35,6 +35,9 @@ public:
   void setNumeroDeCliente(int);
   void setNombreDelCliente(std::string);
   void setApellidoDelCliente(std::string);
+  void setClientePlata(bool);
+  void setClienteOro(bool);
+  void setClienteBlack(bool);
   void setAnioDeIngresoDelCliente(int);
   void setEstadoDelCliente(bool);
   void setDineroEnCuenta(float);

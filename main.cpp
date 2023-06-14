@@ -348,10 +348,7 @@ void incializarMenu() {
   }
 
   Archivo *objArchivo;
-  objArchivo = new Archivo("db/transacciones.txt", "db/clientes.txt");
-
-  objArchivo->iniciarNuevoArchivo();
-  // objArchivo->cargarDesdeArchivo();
+  objArchivo = new Archivo("db/clientes.txt", "db/transacciones.txt");
 
   // Variables para el menu
   char seleccionDelUsuarioFinal = 's';
@@ -373,6 +370,9 @@ void incializarMenu() {
   int diaActual = 1, mesActual = 1, anioActual = 1900;
   int *pDiaActual = &diaActual, *pMesActual = &mesActual,
       *pAnioActual = &anioActual;
+
+  objArchivo->iniciarNuevoArchivo();
+  objArchivo->cargarDesdeArchivo(pContadorCantidadCliente, objCliente);
 
   obtenerFechaDeHoy(pDiaActual, pMesActual, pAnioActual);
   std::cout << std::flush;
