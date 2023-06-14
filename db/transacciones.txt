@@ -1,1 +1,1 @@
-NroCliente  NroTransaccion  Monto Tipo  Fecha
+NroCliente  NroTransaccion  Monto Tipo  Dia Mes Anio

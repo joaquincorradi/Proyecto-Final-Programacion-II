@@ -15,7 +15,7 @@ class Archivo {
 public:
   Archivo(std::string, std::string);
   void iniciarNuevoArchivo();
-  void actualizarArchivo(int, int, int, std::string, int, int, int);
+  void actualizarArchivoClientes(Cliente *objCliente[20], int *);
   void cargarDesdeArchivo(int *, Cliente *objCliente[20], int *);
 };
 

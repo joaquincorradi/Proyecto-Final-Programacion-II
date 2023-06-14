@@ -1,4 +1,5 @@
 NroCliente  Nombre  Apellido  Categoria  Anio  Estado
-0 Joaquin Corradi oro 2023 activo
-1 Felipe Boerr oro 2023 activo
-2 Pedro Drucaroff plata 2023 inactivo
+0  Joaquin  Corradi  oro  2023  activo
+1  Felipe  Boerr  oro  2023  activo
+2  ornella  ferrero  black  2020  activo
+3  pedro  drucaroff  oro  2010  activo

@@ -33,17 +33,33 @@ void Archivo::iniciarNuevoArchivo() {
   }
 }
 
-void Archivo::actualizarArchivo(int, int, int, std::string, int, int, int) {
-  /*Primero se abre el archivo en modo de lectura para chequear si
-  este existe, y en caso de que exista lo cierra y lo vuelve a abrir
-  en modo'append'*/
-  std::ifstream transacciones(pathTransacciones);
-  std::ifstream clientes(pathClientes);
+void Archivo::actualizarArchivoClientes(Cliente *objCliente[20], int *pContadorCantidadCliente) {
+  std::string lectura;
+  std::ofstream clientes(pathClientes, std::ios::app);
 
-  if (transacciones.is_open() && clientes.is_open()) {
-    transacciones.close();
-    clientes.close();
+  if (clientes.is_open()) {
+
+    clientes << objCliente[*pContadorCantidadCliente]->getNumeroDeCliente() << " ";
+    clientes << " " << objCliente[*pContadorCantidadCliente]->getNombreDelCliente() << " ";
+    clientes << " " << objCliente[*pContadorCantidadCliente]->getApellidoDelCliente() << " ";
+
+    if (objCliente[*pContadorCantidadCliente]->getClientePlata()) {
+      clientes << " plata ";
+    } else if (objCliente[*pContadorCantidadCliente]->getClienteOro()) {
+      clientes << " oro ";
+    } else if (objCliente[*pContadorCantidadCliente]->getClienteBlack()) {
+      clientes << " black ";
+    }
+
+    clientes << " " << objCliente[*pContadorCantidadCliente]->getAnioDeIngresoDelCliente() << " ";
+    
+    if (objCliente[*pContadorCantidadCliente]->getEstadoDelCliente()) {
+      clientes << " activo\n";
+    } else {
+      clientes << " inactivo\n";
+    }
   }
+  clientes.close();
 }
 
 void Archivo::cargarDesdeArchivo(int *pContadorCantidadCliente,
@@ -175,5 +191,7 @@ void Archivo::cargarDesdeArchivo(int *pContadorCantidadCliente,
       objCliente[numeroDeClienteTmp]->setCantidadDeTransacciones(
           cantidadDeTransaccionesTmp);
     }
+
+    transacciones.close();
   }
 }

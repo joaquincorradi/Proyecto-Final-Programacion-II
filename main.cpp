@@ -388,6 +388,7 @@ void incializarMenu() {
     switch (*pSeleccionDelMenuPrincipal) {
     case 1:
       opcion1(objCliente, pContadorCantidadCliente);
+      objArchivo->actualizarArchivoClientes(objCliente, pContadorCantidadCliente);
       break;
 
     case 2:
