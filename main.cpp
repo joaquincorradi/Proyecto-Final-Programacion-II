@@ -1,7 +1,6 @@
 /*
   To do list:
   - Crear funcion 9 (filtrar transacciones).
-  - El programa no sale cuando se elige la opcion 10.
   - Hacer el sistema de exportacion de archivos con fstream.
   - Realizar try catch para ints.
   - Realizar chequeos de fechas.
@@ -10,6 +9,7 @@
   - Crear tarjeta de credito.
 */
 
+#include "src/archivo/archivo.h"
 #include "src/cliente/cliente.h"
 
 #include <cstdlib>
@@ -65,30 +65,31 @@ void mostrarMenu(int *pSeleccionDelMenuPrincipal) {
 }
 
 void obtenerFechaDeHoy(int *diaActual, int *mesActual, int *anioActual) {
-  std::cout << "Bienvenido. Antes de continuar ingrese la fecha de hoy.\n";
+  std::cout << "Bienvenido al software del banco BitVault. Antes de continuar "
+               "ingrese la fecha de hoy.\n";
 
-  std::cout << "Ingrese el dia de hoy: ";
+  std::cout << "Ingrese el dia de hoy (numero): ";
   std::cin >> *diaActual;
   while (*diaActual <= 0 || *diaActual > 31) {
     std::cout << "\nIngrese un dia valido.\n";
-    std::cout << "Ingrese el dia de hoy: ";
+    std::cout << "Ingrese el dia de hoy (numero): ";
     std::cin >> *diaActual;
   }
 
-  std::cout << "Ingrese el mes actual: ";
+  std::cout << "Ingrese el mes actual (numero): ";
   std::cin >> *mesActual;
   while (*mesActual <= 0 || *mesActual > 12) {
     std::cout << "\nIngrese un mes valido.\n";
-    std::cout << "Ingrese el mes actual: ";
+    std::cout << "Ingrese el mes actual (numero): ";
     std::cin >> *mesActual;
   }
 
-  std::cout << "Ingrese el anio actual: ";
+  std::cout << "Ingrese el anio actual (numero): ";
   std::cin >> *anioActual;
   while (*anioActual < 1900 || *anioActual > 2023) {
     std::cout
         << "\nIngrese una fecha valida. Nuestros datos van del 1900 al 2023.\n";
-    std::cout << "Ingrese el anio actual: ";
+    std::cout << "Ingrese el anio actual (numero): ";
     std::cin >> *anioActual;
   }
 }
@@ -345,6 +346,13 @@ void incializarMenu() {
   for (int i = 0; i < 20; ++i) {
     objCliente[i] = new Cliente("sin", "datos", false, i + 1, 0.0, -1);
   }
+
+  Archivo *objArchivo;
+  objArchivo = new Archivo("db/transacciones.txt", "db/clientes.txt");
+
+  objArchivo->iniciarNuevoArchivo();
+  // objArchivo->cargarDesdeArchivo();
+
   // Variables para el menu
   char seleccionDelUsuarioFinal = 's';
   char *pSeleccionDelUsuarioFinal = &seleccionDelUsuarioFinal;
@@ -367,6 +375,8 @@ void incializarMenu() {
       *pAnioActual = &anioActual;
 
   obtenerFechaDeHoy(pDiaActual, pMesActual, pAnioActual);
+  std::cout << std::flush;
+  system("cls||clear");
 
   while (*pSeleccionDelUsuarioFinal == 's' ||
          *pSeleccionDelUsuarioFinal == 'S') {
@@ -413,7 +423,7 @@ void incializarMenu() {
       opcion9(objCliente, pContadorCantidadCliente, pMesActual, pAnioActual);
       break;
 
-    case 10: // no funciona
+    case 10:
       *pQuiereSalir = true;
       break;
 
@@ -421,15 +431,20 @@ void incializarMenu() {
       std::cout << "La opcion seleccionada no es valida.\n";
       break;
     }
+
+    /*Como el usuario no eligio la opcion de salir entonces se ejecuto
+     algunas de las opciones del menu, por lo tanto despues de que se
+     termino esa ejecucion se le pregunta si quiere salir.*/
     if (!*pQuiereSalir) {
       std::cout << "¿Desea volver al menu principal? [S/n]: ";
       std::cin >> *pSeleccionDelUsuarioFinal;
+
       if (*pSeleccionDelUsuarioFinal == 's' ||
           *pSeleccionDelUsuarioFinal == 'S') {
         system("cls||clear");
-      } else {
-        *pSeleccionDelUsuarioFinal = 'n';
       }
+    } else {
+      *pSeleccionDelUsuarioFinal = 'n';
     }
   }
 
@@ -437,4 +452,5 @@ void incializarMenu() {
     delete objCliente[i];
     objCliente[i] = nullptr;
   }
+  delete objArchivo;
 }
