@@ -23,20 +23,26 @@ void Archivo::iniciarNuevoArchivo() {
     transacciones.open(pathTransacciones, std::ios::out);
     clientes.open(pathClientes, std::ios::out);
 
-    transacciones << "La wea funciona.";
-    clientes << "La wea funciona.";
+    transacciones << "NroCliente  NroTransaccion  Monto Tipo  Fecha";
+    clientes << "NroCliente  Nombre  Apellido  Categoria  Anio  Estado";
 
     transacciones.close();
     clientes.close();
   }
 }
 
-void Archivo::actualizarArchivo(int, int, int, std::string, int, int, int) {}
+void Archivo::actualizarArchivo(int, int, int, std::string, int, int, int) {
+  /*Primero se abre el archivo en modo de lectura para chequear si 
+  este existe, y en caso de que exista lo cierra y lo vuelve a abrir
+  en modo'append'*/
+}
 
 void Archivo::cargarDesdeArchivo() {
-  transacciones.open("transacciones.txt", std::ios::in);
-  clientes.open("clientes.txt", std::ios::in);
+  std::string lectura;
 
+  std::ifstream transacciones(pathTransacciones);
+  std::ifstream clientes(pathClientes);
+  
   if (transacciones.is_open() && clientes.is_open()) {
   }
 }
