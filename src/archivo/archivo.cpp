@@ -1,4 +1,5 @@
 #include <fstream>
+#include <ios>
 #include <iostream>
 #include <string>
 
@@ -24,7 +25,7 @@ void Archivo::iniciarNuevoArchivo() {
     transacciones.open(pathTransacciones, std::ios::out);
     clientes.open(pathClientes, std::ios::out);
 
-    transacciones << "NroCliente  NroTransaccion  Monto Tipo  Fecha";
+    transacciones << "NroCliente  NroTransaccion  Monto Tipo  Dia  Mes  Anio";
     clientes << "NroCliente  Nombre  Apellido  Categoria  Anio  Estado";
 
     transacciones.close();
@@ -39,17 +40,23 @@ void Archivo::actualizarArchivo(int, int, int, std::string, int, int, int) {
 }
 
 void Archivo::cargarDesdeArchivo(int *pContadorCantidadCliente,
-                                 Cliente *objCliente[20]) {
+                                 Cliente *objCliente[20],
+                                 int *pContadorNroTransaccion) {
   std::string lectura;
   std::string tmp;
   int cambioDeTipo;
+  float cambioDeTipoF;
 
   std::ifstream transacciones(pathTransacciones);
   std::ifstream clientes(pathClientes);
 
   if (transacciones.is_open() && clientes.is_open()) {
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 6; ++i) {
       clientes >> tmp;
+    }
+
+    for (int i = 0; i < 7; ++i) {
+      transacciones >> tmp;
     }
 
     while (clientes >> lectura) {
@@ -97,7 +104,26 @@ void Archivo::cargarDesdeArchivo(int *pContadorCantidadCliente,
                 << " clientes de la sesion anterior.\n\n";
     }
 
-    transacciones.close();
     clientes.close();
+
+    while (clientes >> lectura) {
+      ++*pContadorNroTransaccion;
+      /*Se guarda el numero del cliente al que corresponde la transaccion para
+       asi poder asignarle la misma*/
+      int numeroDeClienteTmp = std::stoi(lectura),
+          cantidadDeTransaccionesTmp = 0;
+
+      clientes >> lectura;
+      cambioDeTipo = std::stoi(lectura);
+      objCliente[numeroDeClienteTmp]
+          ->objTransaccionCliente[cantidadDeTransaccionesTmp]
+          .setNumeroDeTransaccion(cambioDeTipo);
+
+      clientes >> lectura;
+      cambioDeTipoF = std::stof(lectura);
+      objCliente[numeroDeClienteTmp]
+          ->objTransaccionCliente[cantidadDeTransaccionesTmp]
+          .setMontoDeTransaccion(cambioDeTipoF);
+    }
   }
 }

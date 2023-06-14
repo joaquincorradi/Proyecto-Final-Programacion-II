@@ -16,7 +16,7 @@ public:
   Archivo(std::string, std::string);
   void iniciarNuevoArchivo();
   void actualizarArchivo(int, int, int, std::string, int, int, int);
-  void cargarDesdeArchivo(int *, Cliente *objCliente[20]);
+  void cargarDesdeArchivo(int *, Cliente *objCliente[20], int *);
 };
 
 #endif
