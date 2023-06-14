@@ -37,6 +37,13 @@ void Archivo::actualizarArchivo(int, int, int, std::string, int, int, int) {
   /*Primero se abre el archivo en modo de lectura para chequear si
   este existe, y en caso de que exista lo cierra y lo vuelve a abrir
   en modo'append'*/
+  std::ifstream transacciones(pathTransacciones);
+  std::ifstream clientes(pathClientes);
+
+  if (transacciones.is_open() && clientes.is_open()) {
+    transacciones.close();
+    clientes.close();
+  }
 }
 
 void Archivo::cargarDesdeArchivo(int *pContadorCantidadCliente,

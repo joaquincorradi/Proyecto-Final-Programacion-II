@@ -53,7 +53,7 @@ public:
   void listarTransaccionesDelCliente();
   void listarTransaccionesDelClienteSeisMeses(int *, int *);
 
-  Transaccion objTransaccionCliente[10](0);
+  Transaccion objTransaccionCliente[10];
 };
 
 #endif
