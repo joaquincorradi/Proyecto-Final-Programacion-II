@@ -113,24 +113,67 @@ void Archivo::cargarDesdeArchivo(int *pContadorCantidadCliente,
 
     clientes.close();
 
-    while (clientes >> lectura) {
+    while (transacciones >> lectura) {
       ++*pContadorNroTransaccion;
       /*Se guarda el numero del cliente al que corresponde la transaccion para
        asi poder asignarle la misma*/
-      int numeroDeClienteTmp = std::stoi(lectura),
-          cantidadDeTransaccionesTmp = 0;
+      int numeroDeClienteTmp = std::stoi(lectura);
+      int cantidadDeTransaccionesTmp =
+          objCliente[numeroDeClienteTmp]->getCantidadDeTransacciones();
 
-      clientes >> lectura;
+      transacciones >> lectura;
       cambioDeTipo = std::stoi(lectura);
       objCliente[numeroDeClienteTmp]
           ->objTransaccionCliente[cantidadDeTransaccionesTmp]
           .setNumeroDeTransaccion(cambioDeTipo);
 
-      clientes >> lectura;
+      transacciones >> lectura;
       cambioDeTipoF = std::stof(lectura);
       objCliente[numeroDeClienteTmp]
           ->objTransaccionCliente[cantidadDeTransaccionesTmp]
           .setMontoDeTransaccion(cambioDeTipoF);
+
+      transacciones >> lectura;
+
+      if (lectura == "extraccion") {
+        objCliente[numeroDeClienteTmp]
+            ->objTransaccionCliente[cantidadDeTransaccionesTmp]
+            .setExtraccion(true);
+
+        objCliente[numeroDeClienteTmp]
+            ->objTransaccionCliente[cantidadDeTransaccionesTmp]
+            .setDeposito(false);
+      } else if (lectura == "deposito") {
+        objCliente[numeroDeClienteTmp]
+            ->objTransaccionCliente[cantidadDeTransaccionesTmp]
+            .setDeposito(true);
+
+        objCliente[numeroDeClienteTmp]
+            ->objTransaccionCliente[cantidadDeTransaccionesTmp]
+            .setExtraccion(false);
+      }
+
+      transacciones >> lectura;
+      cambioDeTipo = std::stoi(lectura);
+      objCliente[numeroDeClienteTmp]
+          ->objTransaccionCliente[cantidadDeTransaccionesTmp]
+          .setDiaDeTransaccion(cambioDeTipo);
+
+      transacciones >> lectura;
+      cambioDeTipo = std::stoi(lectura);
+      objCliente[numeroDeClienteTmp]
+          ->objTransaccionCliente[cantidadDeTransaccionesTmp]
+          .setMesDeTransaccion(cambioDeTipo);
+
+      transacciones >> lectura;
+      cambioDeTipo = std::stoi(lectura);
+      objCliente[numeroDeClienteTmp]
+          ->objTransaccionCliente[cantidadDeTransaccionesTmp]
+          .setAnioDeTransaccion(cambioDeTipo);
+
+      ++cantidadDeTransaccionesTmp;
+      objCliente[numeroDeClienteTmp]->setCantidadDeTransacciones(
+          cantidadDeTransaccionesTmp);
     }
   }
 }
