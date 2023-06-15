@@ -26,7 +26,7 @@ void Archivo::iniciarNuevoArchivo() {
     clientes.open(pathClientes, std::ios::out);
 
     transacciones << "NroCliente  NroTransaccion  Monto Tipo  Dia  Mes  Anio";
-    clientes << "NroCliente  Nombre  Apellido  Categoria  Anio  Estado";
+    clientes << "NroCliente  Nombre  Apellido  Categoria  Anio  Estado DineroEnCuenta";
 
     transacciones.close();
     clientes.close();
@@ -63,10 +63,14 @@ void Archivo::actualizarArchivoClientes(Cliente *objCliente[20],
         << " ";
 
     if (objCliente[*pContadorCantidadCliente]->getEstadoDelCliente()) {
-      clientes << " activo\n";
+      clientes << " activo ";
     } else {
-      clientes << " inactivo\n";
+      clientes << " inactivo ";
     }
+
+    clientes << " "
+             << objCliente[*pContadorCantidadCliente]->getDineroEnCuenta()
+             << '\n';
   }
   clientes.close();
 }
@@ -126,11 +130,9 @@ void Archivo::cargarDesdeArchivoClientes(int *pContadorCantidadCliente,
   std::ifstream clientes(pathClientes);
 
   if (clientes.is_open()) {
-    for (int i = 0; i < 6; ++i) {
+    for (int i = 0; i < 7; ++i) {
       clientes >> tmp;
     }
-
-    
 
     while (clientes >> lectura) {
       ++*pContadorCantidadCliente;
@@ -170,6 +172,10 @@ void Archivo::cargarDesdeArchivoClientes(int *pContadorCantidadCliente,
       } else if (lectura == "inactivo") {
         objCliente[*pContadorCantidadCliente]->setEstadoDelCliente(false);
       }
+
+      clientes >> lectura;
+      cambioDeTipo = std::stoi(lectura);
+      objCliente[*pContadorCantidadCliente]->setDineroEnCuenta(cambioDeTipo);
     }
 
     if (*pContadorCantidadCliente >= 0) {
@@ -270,7 +276,7 @@ void Archivo::actulizarALaBaja(Cliente *objCliente[20], int *pContadorCantidadCl
   std::ofstream clientes(pathClientes, std::ios::out);
 
   if (clientes.is_open()) {
-    clientes << "NroCliente  Nombre  Apellido  Categoria  Anio  Estado";
+    clientes << "NroCliente  Nombre  Apellido  Categoria  Anio  Estado DineroEnCuenta";
     
     for (int i = 0; i <= *pContadorCantidadCliente; ++i){
     clientes << '\n'
@@ -297,10 +303,14 @@ void Archivo::actulizarALaBaja(Cliente *objCliente[20], int *pContadorCantidadCl
         << " ";
 
     if (objCliente[i]->getEstadoDelCliente()) {
-      clientes << " activo" << '\n';
+      clientes << " activo ";
     } else if (!objCliente[i]->getEstadoDelCliente()) {
-      clientes << " inactivo" << '\n';
+      clientes << " inactivo ";
     }
+
+    clientes << " "
+             << objCliente[i]->getDineroEnCuenta()
+             << '\n';
   }
   }
   clientes.close();

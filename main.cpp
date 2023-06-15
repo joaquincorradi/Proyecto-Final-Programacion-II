@@ -1,6 +1,7 @@
 /*
   To do list:
   - Opcion 1 de opcion9() no funciona.
+  - Transaccion extra al cargar de transacciones.txt
 */
 
 #include "src/archivo/archivo.h"
@@ -637,11 +638,13 @@ void incializarMenu() {
     case 4:
       opcion4(objCliente, pContadorCantidadCliente, pContadorNroTransaccion,
               objArchivo);
+      objArchivo->actulizarALaBaja(objCliente, pContadorCantidadCliente);
       break;
 
     case 5:
       opcion5(objCliente, pContadorCantidadCliente, pContadorNroTransaccion,
               objArchivo);
+      objArchivo->actulizarALaBaja(objCliente, pContadorCantidadCliente);
       break;
 
     case 6:
