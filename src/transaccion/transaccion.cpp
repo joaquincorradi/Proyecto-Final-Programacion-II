@@ -108,7 +108,7 @@ void Transaccion::listarSeisMeses(int *pMesActual, int *pAnioActual) {
     *pTempAnio -= 1;
   }
  
-  if (mesDeTransaccion == *pTempMes && anioDeTransaccion == *pTempAnio) {
+  if (*pTempMes == mesDeTransaccion && *pTempAnio ==  anioDeTransaccion) {
     listarTransaccion();
     std::cout <<"se ejecuto el if";
   }

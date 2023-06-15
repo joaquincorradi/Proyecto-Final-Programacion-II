@@ -1,7 +1,6 @@
 /*
   To do list:
-  - Opcion 1  de opcion9().
-  - Transacciones no se cargan del txt al iniciar.
+  - Opcion 1 de opcion9() no funciona.
 */
 
 #include "src/archivo/archivo.h"
@@ -31,7 +30,7 @@ void incializarMenu();
 int main() { incializarMenu(); }
 
 void mostrarMenu(int *pSeleccionDelMenuPrincipal, int *diaActual, int *mesActual, int *anioActual) {
-  bool NaN = false;
+  bool NaN = false;//este bool es para los try y catch
 
   std::cout
       << "\n==============================================================\n";
@@ -539,8 +538,6 @@ void opcion9(Cliente *objCliente[20], int *pContadorCantidadCliente,
     break;
   
   case 2:
-
-
     do {
       try {
         std::cout << "Ingrese un anio para consultar: ";
