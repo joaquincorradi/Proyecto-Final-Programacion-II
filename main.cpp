@@ -67,11 +67,11 @@ void mostrarMenu(int *pSeleccionDelMenuPrincipal, int *diaActual, int *mesActual
       std::cin >> *pSeleccionDelMenuPrincipal;
 
       if (std::cin.fail()) {
-        throw std::runtime_error("error");
+        throw 1;
       } else {
         NaN = false;
       }
-    } catch (const std::exception &) {
+    } catch (int e) {
       NaN = true;
       std::cout << "Por favor, ingrese un numero.\n";
       std::cin.clear(); // limpia el error
@@ -92,11 +92,11 @@ void obtenerFechaDeHoy(int *diaActual, int *mesActual, int *anioActual) {
       std::cin >> *diaActual;
 
       if (std::cin.fail()) {
-        throw std::runtime_error("error");
+        throw 1;
       } else {
         NaN = false;
       }
-    } catch (const std::exception &) {
+    } catch (int e) {
       NaN = true;
       std::cout << "Por favor, ingrese un numero.\n";
       std::cin.clear();
@@ -115,11 +115,11 @@ void obtenerFechaDeHoy(int *diaActual, int *mesActual, int *anioActual) {
       std::cout << "Ingrese el mes actual (numero): ";
       std::cin >> *mesActual;
       if (std::cin.fail()) {
-        throw std::runtime_error("error");
+        throw 1;
       } else {
         NaN = false;
       }
-    } catch (const std::exception &) {
+    } catch (int e) {
       NaN = true;
       std::cout << "Por favor, ingrese un numero.\n";
       std::cin.clear();
@@ -138,11 +138,11 @@ void obtenerFechaDeHoy(int *diaActual, int *mesActual, int *anioActual) {
       std::cout << "Ingrese el anio actual (numero): ";
       std::cin >> *anioActual;
       if (std::cin.fail()) {
-        throw std::runtime_error("error");
+        throw 1;
       } else {
         NaN = false;
       }
-    } catch (const std::exception &) {
+    } catch (int e) {
       NaN = true;
       std::cout << "Por favor, ingrese un numero.\n";
       std::cin.clear();
@@ -178,11 +178,11 @@ void opcion2(Cliente *objCliente[20], int *pContadorCantidadCliente) {
       std::cout << "Ingrese numero del usuario que desea dar de baja: ";
       std::cin >> *pEleccionDelUsuario;
       if (std::cin.fail()) {
-        throw std::runtime_error("error");
+        throw 1;
       } else {
         NaN = false;
       }
-    } catch (const std::exception &) {
+    } catch (int e) {
       NaN = true;
       std::cout << "Por favor, ingrese un numero.\n";
       std::cin.clear();
@@ -218,11 +218,11 @@ void opcion3(Cliente *objCliente[20], int *pContadorCantidadCliente) {
       std::cout << "Ingrese numero del usuario que desea reactivar: ";
       std::cin >> *pEleccionDelUsuario;
       if (std::cin.fail()) {
-        throw std::runtime_error("error");
+        throw 1;
       } else {
         NaN = false;
       }
-    } catch (const std::exception &) {
+    } catch (int e) {
       NaN = true;
       std::cout << "Por favor, ingrese un numero.\n";
       std::cin.clear();
@@ -259,11 +259,11 @@ void opcion4(Cliente *objCliente[20], int *pContadorCantidadCliente,
       std::cout << "Ingrese el numero de cliente para realizar una extraccion: ";
       std::cin >> *pNumeroDeClienteElegido;
       if (std::cin.fail()) {
-        throw std::runtime_error("error");
+        throw 1;
       } else {
         NaN = false;
       }
-    } catch (const std::exception &) {
+    } catch (int e) {
       NaN = true;
       std::cout << "Por favor, ingrese un numero.\n";
       std::cin.clear();
@@ -336,11 +336,11 @@ void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente,
       std::cout << "Ingrese el numero de cliente para realizar una deposito: ";
       std::cin >> *pNumeroDeClienteElegido;
       if (std::cin.fail()) {
-        throw std::runtime_error("error");
+        throw 1;
       } else {
         NaN = false;
       }
-    } catch (const std::exception &) {
+    } catch (int e) {
       NaN = true;
       std::cout << "Por favor, ingrese un numero.\n";
       std::cin.clear();
@@ -407,11 +407,11 @@ void opcion6(Cliente *objCliente[20], int *pContadorCantidadCliente) {
       std::cin >> numeroDeClienteElegido;
 
       if (std::cin.fail()) {
-        throw std::runtime_error("error");
+        throw 1;
       } else {
         NaN = false;
       }
-    } catch (const std::exception &) {
+    } catch (int e) {
       NaN = true;
       std::cout << "Por favor, ingrese un numero.\n";
       std::cin.clear();
@@ -456,11 +456,11 @@ void opcion8(Cliente *objCliente[20], int *pContadorCantidadCliente) {
       std::cin >> *pNumeroDeClienteElegido;
 
       if (std::cin.fail()) {
-        throw std::runtime_error("error");
+        throw 1;
       } else {
         NaN = false;
       }
-    } catch (const std::exception &) {
+    } catch (int e) {
       NaN = true;
       std::cout << "Por favor, ingrese un numero.\n";
       std::cin.clear();
@@ -518,11 +518,11 @@ void opcion9(Cliente *objCliente[20], int *pContadorCantidadCliente,
       std::cin >> *pEleccionDelUsuarioSubmenu;
 
       if (std::cin.fail()) {
-        throw std::runtime_error("error");
+        throw 1;
       } else {
         NaN = false;
       }
-    } catch (const std::exception &) {
+    } catch (int e) {
       NaN = true;
       std::cout << "Por favor, ingrese un numero.\n";
       std::cin.clear();
@@ -545,11 +545,11 @@ void opcion9(Cliente *objCliente[20], int *pContadorCantidadCliente,
         std::cin >> *pAnioSeleccionado;
 
         if (std::cin.fail()) {
-          throw std::runtime_error("error");
+          throw 1;
         } else {
           NaN2 = false;
         }
-      } catch (const std::exception &) {
+      } catch (int e) {
         NaN2 = true;
         std::cout << "Por favor, ingrese un numero.\n";
         std::cin.clear();

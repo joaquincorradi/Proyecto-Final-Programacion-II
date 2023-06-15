@@ -205,12 +205,17 @@ void Archivo::cargarDesdeArchivoTransacciones(Cliente *objCliente[20], int *pCon
       /*Se guarda el numero del cliente al que corresponde la transaccion para
        asi poder asignarle la misma*/
       int numeroDeClienteTmp = std::stoi(lectura);
+      int cantidadDeTransaccionesTmp;
 
       if (objCliente[numeroDeClienteTmp]->getCantidadDeTransacciones() == -1) {
         objCliente[numeroDeClienteTmp]->setCantidadDeTransacciones(0);
+        cantidadDeTransaccionesTmp = 0;
+      } else {
+        cantidadDeTransaccionesTmp =
+          objCliente[numeroDeClienteTmp]->getCantidadDeTransacciones();
       }
 
-      int cantidadDeTransaccionesTmp =
+      cantidadDeTransaccionesTmp =
           objCliente[numeroDeClienteTmp]->getCantidadDeTransacciones();
 
       transacciones >> lectura;

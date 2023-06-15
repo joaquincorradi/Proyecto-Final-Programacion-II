@@ -92,11 +92,11 @@ void Cliente::operator++() {
       std::cin >> anioDeIngresoDelCliente;
 
       if (std::cin.fail()) {
-        throw std::runtime_error("error");
+        throw 1;
       } else {
         NaN = false;
       }
-    } catch (const std::exception &) {
+    } catch (int e) {
       NaN = true;
       std::cout << "Por favor, ingrese un numero.\n";
       std::cin.clear();

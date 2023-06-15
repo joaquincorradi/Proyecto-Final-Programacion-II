@@ -1,2 +1,2 @@
 NroCliente  Nombre  Apellido  Categoria  Anio  Estado DineroEnCuenta
-0  Joaquin  Corradi  plata  2023  activo  2000
+0  J  C  plata  2023  activo  300
