@@ -608,7 +608,7 @@ void incializarMenu() {
 
   objArchivo->iniciarNuevoArchivo();
   objArchivo->cargarDesdeArchivoClientes(pContadorCantidadCliente, objCliente);
-  // objArchivo->cargarDesdeArchivoTransacciones(objCliente, pContadorNroTransaccion);
+  objArchivo->cargarDesdeArchivoTransacciones(objCliente, pContadorNroTransaccion);
 
   obtenerFechaDeHoy(pDiaActual, pMesActual, pAnioActual);
   std::cout << std::flush;

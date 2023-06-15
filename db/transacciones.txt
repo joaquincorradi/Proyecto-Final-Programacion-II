@@ -1,2 +1,8 @@
 NroCliente  NroTransaccion  Monto Tipo  Dia  Mes  Anio
-0  0  1000  deposito  15  6  2023
+1  0  1000  deposito  15  6  2023
+
+1  1  600  extraccion  15  6  2023
+
+0  2  1600  deposito  15  6  2023
+
+0  3  600  extraccion  15  6  2023

@@ -188,9 +188,9 @@ void Archivo::cargarDesdeArchivoTransacciones(Cliente *objCliente[20], int *pCon
 
   int cambioDeTipo;
   float cambioDeTipoF;
-  
+
   if (transacciones.is_open()) {
-  for (int i = 0; i < 7; ++i) {
+    for (int i = 0; i < 7; ++i) {
       transacciones >> tmp;
     }
 
@@ -199,6 +199,11 @@ void Archivo::cargarDesdeArchivoTransacciones(Cliente *objCliente[20], int *pCon
       /*Se guarda el numero del cliente al que corresponde la transaccion para
        asi poder asignarle la misma*/
       int numeroDeClienteTmp = std::stoi(lectura);
+
+      if (objCliente[numeroDeClienteTmp]->getCantidadDeTransacciones() == -1) {
+        objCliente[numeroDeClienteTmp]->setCantidadDeTransacciones(0);
+      }
+
       int cantidadDeTransaccionesTmp =
           objCliente[numeroDeClienteTmp]->getCantidadDeTransacciones();
 
