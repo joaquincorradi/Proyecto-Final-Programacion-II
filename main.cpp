@@ -1,6 +1,8 @@
 /*
   To do list:
-  - Crear funcion 9 (filtrar transacciones).
+  - Actualizar clientes.txt cuando se da de baja un cliete.
+  - Opcion 1 y 2 de opcion9().
+  - Try catch.
   - Realizar chequeos de fechas.
   - Chequear que palabra ingresa el usuario como categoria.
   - Se puede extaer plata del futuro en el pasado.
@@ -12,6 +14,8 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <limits>
+#include <stdexcept> // libreria para que funcione el catch
 
 void mostrarMenu(int *pSeleccionDelMenuPrincipal);
 void obtenerFechaDeHoy(int *diaActual, int *mesActual, int *anioActual);
@@ -32,6 +36,8 @@ void incializarMenu();
 int main() { incializarMenu(); }
 
 void mostrarMenu(int *pSeleccionDelMenuPrincipal) {
+  bool NaN = false;
+
   std::cout
       << "\n==============================================================\n";
   std::cout
@@ -58,24 +64,73 @@ void mostrarMenu(int *pSeleccionDelMenuPrincipal) {
   std::cout << "[10] Salir.\n\n";
   std::cout
       << "--------------------------------------------------------------\n";
-  std::cout << "Ingrese su eleccion: ";
-  std::cin >> *pSeleccionDelMenuPrincipal;
+
+  do {
+    try {
+      std::cout << "Ingrese su eleccion: ";
+      std::cin >> *pSeleccionDelMenuPrincipal;
+
+      if (std::cin.fail()) {
+        throw std::runtime_error("error");
+      } else {
+        NaN = false;
+      }
+    } catch (const std::exception &) {
+      NaN = true;
+      std::cout << "Por favor, ingrese un numero.\n";
+      std::cin.clear(); // limpia el error
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
+                      '\n'); // limpia los caracteres guardados
+    }
+  } while (NaN);
 }
 
 void obtenerFechaDeHoy(int *diaActual, int *mesActual, int *anioActual) {
+  bool NaN = false;
+
   std::cout << "Bienvenido al software del banco BitVault. Antes de continuar "
                "ingrese la fecha de hoy.\n";
+  do {
+    try {
+      std::cout << "Ingrese el dia de hoy (numero): ";
+      std::cin >> *diaActual;
 
-  std::cout << "Ingrese el dia de hoy (numero): ";
-  std::cin >> *diaActual;
+      if (std::cin.fail()) {
+        throw std::runtime_error("error");
+      } else {
+        NaN = false;
+      }
+    } catch (const std::exception &) {
+      NaN = true;
+      std::cout << "Por favor, ingrese un numero.\n";
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+  } while (NaN);
+
   while (*diaActual <= 0 || *diaActual > 31) {
     std::cout << "\nIngrese un dia valido.\n";
     std::cout << "Ingrese el dia de hoy (numero): ";
     std::cin >> *diaActual;
   }
 
-  std::cout << "Ingrese el mes actual (numero): ";
-  std::cin >> *mesActual;
+  do {
+    try {
+      std::cout << "Ingrese el mes actual (numero): ";
+      std::cin >> *mesActual;
+      if (std::cin.fail()) {
+        throw std::runtime_error("error");
+      } else {
+        NaN = false;
+      }
+    } catch (const std::exception &) {
+      NaN = true;
+      std::cout << "Por favor, ingrese un numero.\n";
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+  } while (NaN);
+
   while (*mesActual <= 0 || *mesActual > 12) {
     std::cout << "\nIngrese un mes valido.\n";
     std::cout << "Ingrese el mes actual (numero): ";

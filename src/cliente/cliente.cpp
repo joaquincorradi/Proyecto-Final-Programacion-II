@@ -34,10 +34,13 @@ void Cliente::setApellidoDelCliente(std::string _apellidoDelCliente) {
   apellidoDelCliente = _apellidoDelCliente;
 }
 
-void Cliente::setClientePlata(bool _clientePlata) { clientePlata = _clientePlata; }
+void Cliente::setClientePlata(bool _clientePlata) {
+  clientePlata = _clientePlata;
+}
 void Cliente::setClienteOro(bool _clienteOro) { clienteOro = _clienteOro; }
-void Cliente::setClienteBlack(bool _clienteBlack) { clienteBlack = _clienteBlack; }
-
+void Cliente::setClienteBlack(bool _clienteBlack) {
+  clienteBlack = _clienteBlack;
+}
 
 void Cliente::setAnioDeIngresoDelCliente(int _anioDeIngresoDelCliente) {
   anioDeIngresoDelCliente = _anioDeIngresoDelCliente;
@@ -76,15 +79,33 @@ void Cliente::imprimirInformacionDelCliente() {
 
 void Cliente::operator++() {
   std::string respuestaACategoria;
+  bool NaN = false;
+
   std::cout << "Alta de nuevo cliente:\n\n";
   std::cout << "Ingrese nombre: ";
   std::cin >> nombreDelCliente;
   std::cout << "Ingrese apellido: ";
   std::cin >> apellidoDelCliente;
-  std::cout << "Ingrese el anio de ingreso: ";
-  std::cin >> anioDeIngresoDelCliente;
+  do {
+    try {
+      std::cout << "Ingrese el anio de ingreso: ";
+      std::cin >> anioDeIngresoDelCliente;
+
+      if (std::cin.fail()) {
+        throw std::runtime_error("error");
+      } else {
+        NaN = false;
+      }
+    } catch (const std::exception &) {
+      NaN = true;
+      std::cout << "Por favor, ingrese un numero.\n";
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+  } while (NaN);
   std::cout << "¿Que categoria posee el cliente? [plata/oro/black]: ";
   std::cin >> respuestaACategoria;
+
   while ((2023 - anioDeIngresoDelCliente) < 3 &&
          respuestaACategoria == "black") {
     std::cout << "\nEl cliente " << nombreDelCliente << " "
@@ -96,18 +117,26 @@ void Cliente::operator++() {
                  "[plata/oro]: ";
     std::cin >> respuestaACategoria;
   }
-  if (respuestaACategoria == "plata") {
+  if (respuestaACategoria == "plata" || respuestaACategoria == "Plata") {
     clientePlata = true;
     clienteOro = false;
     clienteBlack = false;
-  } else if (respuestaACategoria == "oro") {
+  } else if (respuestaACategoria == "oro" || respuestaACategoria == "Oro") {
     clientePlata = false;
     clienteOro = true;
     clienteBlack = false;
-  } else {
+  } else if (respuestaACategoria == "black" || respuestaACategoria == "Black") {
     clientePlata = false;
     clienteOro = false;
     clienteBlack = true;
+  } else {
+    std::cout << "Ingreso una opcion incorrecta. El sistema autoasignara plata "
+                 "al cliente.\n";
+    /* corregir esto y ponerlo adentro de un do while para que el usuario pueda
+     * volver a ingresar una opcion */
+    clientePlata = true;
+    clienteOro = false;
+    clienteBlack = false;
   }
   estadoDelCliente = true;
   if (estadoDelCliente) {

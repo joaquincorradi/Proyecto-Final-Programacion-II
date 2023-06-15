@@ -1,2 +1,10 @@
 NroCliente  Nombre  Apellido  Categoria  Anio  Estado
 0  Joaquin  Corradi  oro  2023  activo
+
+1  a  a  black  0  activo
+
+2  a  a  oro  2023  activo
+
+3  a  a  plata  2023  activo
+
+4  a  a  plata  2023  activo
