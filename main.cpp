@@ -19,9 +19,9 @@ void opcion1(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion2(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion3(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion4(Cliente *objCliente[20], int *pContadorCantidadCliente,
-             int *pContadorNroTransaccion);
+             int *pContadorNroTransaccion, Archivo *objArchivo);
 void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente,
-             int *pContadorNroTransaccion);
+             int *pContadorNroTransaccion, Archivo *objArchivo);
 void opcion6(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion7(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion8(Cliente *objCliente[20], int *pContadorCantidadCliente);
@@ -142,7 +142,7 @@ void opcion3(Cliente *objCliente[20], int *pContadorCantidadCliente) {
 }
 
 void opcion4(Cliente *objCliente[20], int *pContadorCantidadCliente,
-             int *pContadorNroTransaccion) {
+             int *pContadorNroTransaccion, Archivo *objArchivo) {
   int numeroDeClienteElegido = 0;
   int *pNumeroDeClienteElegido = &numeroDeClienteElegido;
 
@@ -189,6 +189,10 @@ void opcion4(Cliente *objCliente[20], int *pContadorCantidadCliente,
             .setNumeroDeTransaccion(*pContadorNroTransaccion);
         objCliente[i]->setCantidadDeTransacciones(*pTempCantidadDeTrasacciones);
         objCliente[i]->setDineroEnCuenta(*pDineroEnCuentaTemp);
+
+        objArchivo->actualizarArchivoTransacciones(
+            objCliente, pNumeroDeClienteElegido, pTempCantidadDeTrasacciones,
+            pContadorNroTransaccion);
       }
     }
   } else {
@@ -198,7 +202,7 @@ void opcion4(Cliente *objCliente[20], int *pContadorCantidadCliente,
 }
 
 void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente,
-             int *pContadorNroTransaccion) {
+             int *pContadorNroTransaccion, Archivo *objArchivo) {
   int numeroDeClienteElegido = 0;
   int *pNumeroDeClienteElegido = &numeroDeClienteElegido;
 
@@ -242,6 +246,10 @@ void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente,
             .setNumeroDeTransaccion(*pContadorNroTransaccion);
         objCliente[i]->setCantidadDeTransacciones(*pTempCantidadDeTrasacciones);
         objCliente[i]->setDineroEnCuenta(*pDineroEnCuentaTemp);
+
+        objArchivo->actualizarArchivoTransacciones(
+            objCliente, pNumeroDeClienteElegido, pTempCantidadDeTrasacciones,
+            pContadorNroTransaccion);
       }
     }
   } else {
@@ -328,14 +336,16 @@ void opcion9(Cliente *objCliente[20], int *pContadorCantidadCliente,
   switch (*pEleccionDelUsuarioSubmenu) {
   case 1:
     for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
-      objCliente[i]->listarTransaccionesDelClienteSeisMeses(mesActual, anioActual);
+      objCliente[i]->listarTransaccionesDelClienteSeisMeses(mesActual,
+                                                            anioActual);
     }
     break;
 
-    case 3:
-      for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
-        objCliente[i]->listarTransaccionesDelCliente();
-      }
+  case 3:
+    for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
+      objCliente[i]->listarTransaccionesDelCliente();
+    }
+    break;
 
   default:
     std::cout << "La opcion seleccionada no es valida.\n";
@@ -390,7 +400,8 @@ void incializarMenu() {
     switch (*pSeleccionDelMenuPrincipal) {
     case 1:
       opcion1(objCliente, pContadorCantidadCliente);
-      objArchivo->actualizarArchivoClientes(objCliente, pContadorCantidadCliente);
+      objArchivo->actualizarArchivoClientes(objCliente,
+                                            pContadorCantidadCliente);
       break;
 
     case 2:
@@ -403,11 +414,13 @@ void incializarMenu() {
       break;
 
     case 4:
-      opcion4(objCliente, pContadorCantidadCliente, pContadorNroTransaccion);
+      opcion4(objCliente, pContadorCantidadCliente, pContadorNroTransaccion,
+              objArchivo);
       break;
 
     case 5:
-      opcion5(objCliente, pContadorCantidadCliente, pContadorNroTransaccion);
+      opcion5(objCliente, pContadorCantidadCliente, pContadorNroTransaccion,
+              objArchivo);
       break;
 
     case 6:
@@ -441,7 +454,7 @@ void incializarMenu() {
      termino esa ejecucion se le pregunta si quiere salir.*/
     if (!*pQuiereSalir) {
       std::cout << "¿Desea volver al menu principal? [S/n]: ";
-     
+
       std::cin >> *pSeleccionDelUsuarioFinal;
 
       if (*pSeleccionDelUsuarioFinal == 's' ||

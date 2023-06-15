@@ -42,6 +42,9 @@ public:
   void setEstadoDelCliente(bool);
   void setDineroEnCuenta(float);
   void setCantidadDeTransacciones(int);
+  /*setCantidadDeTransacciones cuenta las transacciones que tiene cada cliente,
+   es decir, se usa como tope para acceder al array de Transaccion que esta
+   dentro de cliente*/
 
   void imprimirInformacionDelCliente();
 

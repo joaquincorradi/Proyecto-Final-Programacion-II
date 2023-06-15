@@ -33,15 +33,21 @@ void Archivo::iniciarNuevoArchivo() {
   }
 }
 
-void Archivo::actualizarArchivoClientes(Cliente *objCliente[20], int *pContadorCantidadCliente) {
+void Archivo::actualizarArchivoClientes(Cliente *objCliente[20],
+                                        int *pContadorCantidadCliente) {
   std::string lectura;
   std::ofstream clientes(pathClientes, std::ios::app);
 
   if (clientes.is_open()) {
-
-    clientes << objCliente[*pContadorCantidadCliente]->getNumeroDeCliente() << " ";
-    clientes << " " << objCliente[*pContadorCantidadCliente]->getNombreDelCliente() << " ";
-    clientes << " " << objCliente[*pContadorCantidadCliente]->getApellidoDelCliente() << " ";
+    clientes << '\n'
+             << objCliente[*pContadorCantidadCliente]->getNumeroDeCliente()
+             << " ";
+    clientes << " "
+             << objCliente[*pContadorCantidadCliente]->getNombreDelCliente()
+             << " ";
+    clientes << " "
+             << objCliente[*pContadorCantidadCliente]->getApellidoDelCliente()
+             << " ";
 
     if (objCliente[*pContadorCantidadCliente]->getClientePlata()) {
       clientes << " plata ";
@@ -51,8 +57,11 @@ void Archivo::actualizarArchivoClientes(Cliente *objCliente[20], int *pContadorC
       clientes << " black ";
     }
 
-    clientes << " " << objCliente[*pContadorCantidadCliente]->getAnioDeIngresoDelCliente() << " ";
-    
+    clientes
+        << " "
+        << objCliente[*pContadorCantidadCliente]->getAnioDeIngresoDelCliente()
+        << " ";
+
     if (objCliente[*pContadorCantidadCliente]->getEstadoDelCliente()) {
       clientes << " activo\n";
     } else {
@@ -60,6 +69,51 @@ void Archivo::actualizarArchivoClientes(Cliente *objCliente[20], int *pContadorC
     }
   }
   clientes.close();
+}
+
+void Archivo::actualizarArchivoTransacciones(Cliente *objCliente[20],
+                                             int *pEleccionDelUsuario,
+                                             int *pTempCantidadDeTrasacciones,
+                                             int *pContadorNroTransaccion) {
+  std::string lectura;
+  std::ofstream transacciones(pathTransacciones, std::ios::app);
+
+  if (transacciones.is_open()) {
+    transacciones << '\n' << *pEleccionDelUsuario << " ";
+    transacciones << " " << *pContadorNroTransaccion << " ";
+    transacciones << " "
+                  << objCliente[*pEleccionDelUsuario]
+                         ->objTransaccionCliente[*pTempCantidadDeTrasacciones]
+                         .getMontoDeTransaccion()
+                  << " ";
+
+    if (objCliente[*pEleccionDelUsuario]
+            ->objTransaccionCliente[*pTempCantidadDeTrasacciones]
+            .getDeposito()) {
+      transacciones << " deposito ";
+    } else if (objCliente[*pEleccionDelUsuario]
+                   ->objTransaccionCliente[*pTempCantidadDeTrasacciones]
+                   .getExtraccion()) {
+      transacciones << " extraccion ";
+    }
+
+    transacciones << " "
+                  << objCliente[*pEleccionDelUsuario]
+                         ->objTransaccionCliente[*pTempCantidadDeTrasacciones]
+                         .getDiaDetransaccion()
+                  << " ";
+    transacciones << " "
+                  << objCliente[*pEleccionDelUsuario]
+                         ->objTransaccionCliente[*pTempCantidadDeTrasacciones]
+                         .getMesDeTransaccion()
+                  << " ";
+    transacciones << " "
+                  << objCliente[*pEleccionDelUsuario]
+                         ->objTransaccionCliente[*pTempCantidadDeTrasacciones]
+                         .getAnioDeTransaccion()
+                  << '\n';
+  }
+  transacciones.close();
 }
 
 void Archivo::cargarDesdeArchivo(int *pContadorCantidadCliente,

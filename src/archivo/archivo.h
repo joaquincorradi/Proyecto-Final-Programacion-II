@@ -16,6 +16,8 @@ public:
   Archivo(std::string, std::string);
   void iniciarNuevoArchivo();
   void actualizarArchivoClientes(Cliente *objCliente[20], int *);
+  void actualizarArchivoTransacciones(Cliente *objCliente[20], int *, int *,
+                                      int *);
   void cargarDesdeArchivo(int *, Cliente *objCliente[20], int *);
 };
 
