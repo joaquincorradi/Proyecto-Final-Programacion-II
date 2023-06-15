@@ -203,3 +203,11 @@ void Cliente::listarTransaccionesDelClienteSeisMeses(int *pMesActual,
     objTransaccionCliente[i].listarSeisMeses(pMesActual, pAnioActual);
   }
 }
+
+void Cliente::listarTransaccionesDelClientePorAnio(int *pAnioSeleccionado) {
+  std::cout << "- Transacciones para el cliente " << nombreDelCliente << " "
+            << apellidoDelCliente << " para el anio seleccionado: \n";
+  for (int i = 0; i <= cantidadDeTransacciones; ++i) {
+    objTransaccionCliente[i].ListarPorAnio(pAnioSeleccionado);
+  }
+}

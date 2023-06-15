@@ -55,6 +55,7 @@ public:
   void listarTodosLosClientes();
   void listarTransaccionesDelCliente();
   void listarTransaccionesDelClienteSeisMeses(int *, int *);
+  void listarTransaccionesDelClientePorAnio(int *pAnioSeleccionado);
 
   Transaccion objTransaccionCliente[10];
 };

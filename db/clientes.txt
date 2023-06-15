@@ -1,4 +1,4 @@
 NroCliente  Nombre  Apellido  Categoria  Anio  Estado
-0  J  C  plata  2023  activo
+0  Joaquin  Corradi  plata  2023  activo
 
-1  F  B  plata  2023  activo
+1  Felipe  Boerr  plata  2023  activo

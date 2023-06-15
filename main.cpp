@@ -1,11 +1,7 @@
 /*
   To do list:
-  - Opcion 1 y 2 de opcion9().
-  - Try catch.
-  - Realizar chequeos de fechas.
-  - Chequear que palabra ingresa el usuario como categoria.
-  - Se puede extaer plata del futuro en el pasado.
-  - Crear tarjeta de credito.
+  - Opcion 1  de opcion9().
+  - Transacciones no se cargan del txt al iniciar.
 */
 
 #include "src/archivo/archivo.h"
@@ -504,6 +500,10 @@ void opcion9(Cliente *objCliente[20], int *pContadorCantidadCliente,
   int eleccionDelUsuarioSubmenu = 0;
   int *pEleccionDelUsuarioSubmenu = &eleccionDelUsuarioSubmenu;
 
+  int anioSeleccionado;
+  int *pAnioSeleccionado = &anioSeleccionado;
+
+  bool NaN2 = false;
   bool NaN = 0;
 
   std::cout << "Filtrar transacciones y depositos por periodo.\n";
@@ -511,7 +511,6 @@ void opcion9(Cliente *objCliente[20], int *pContadorCantidadCliente,
   std::cout << "[1] Mostrar transacciones en los ultimos 6 meses.\n";
   std::cout << "[2] Filtrar transacciones por anio\n";
   std::cout << "[3] Mostrar todas las transacciones.\n\n";
-  
 
   do {
     try {
@@ -536,6 +535,32 @@ void opcion9(Cliente *objCliente[20], int *pContadorCantidadCliente,
     for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
       objCliente[i]->listarTransaccionesDelClienteSeisMeses(mesActual,
                                                             anioActual);
+    }
+    break;
+  
+  case 2:
+
+
+    do {
+      try {
+        std::cout << "Ingrese un anio para consultar: ";
+        std::cin >> *pAnioSeleccionado;
+
+        if (std::cin.fail()) {
+          throw std::runtime_error("error");
+        } else {
+          NaN2 = false;
+        }
+      } catch (const std::exception &) {
+        NaN2 = true;
+        std::cout << "Por favor, ingrese un numero.\n";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      }
+    } while (NaN2);
+
+    for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
+      objCliente[i]->listarTransaccionesDelClientePorAnio(pAnioSeleccionado);
     }
     break;
 
@@ -582,8 +607,8 @@ void incializarMenu() {
       *pAnioActual = &anioActual;
 
   objArchivo->iniciarNuevoArchivo();
-  objArchivo->cargarDesdeArchivo(pContadorCantidadCliente, objCliente,
-                                 pContadorNroTransaccion);
+  objArchivo->cargarDesdeArchivoClientes(pContadorCantidadCliente, objCliente);
+  // objArchivo->cargarDesdeArchivoTransacciones(objCliente, pContadorNroTransaccion);
 
   obtenerFechaDeHoy(pDiaActual, pMesActual, pAnioActual);
   std::cout << std::flush;

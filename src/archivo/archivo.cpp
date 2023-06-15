@@ -116,25 +116,21 @@ void Archivo::actualizarArchivoTransacciones(Cliente *objCliente[20],
   transacciones.close();
 }
 
-void Archivo::cargarDesdeArchivo(int *pContadorCantidadCliente,
-                                 Cliente *objCliente[20],
-                                 int *pContadorNroTransaccion) {
+void Archivo::cargarDesdeArchivoClientes(int *pContadorCantidadCliente,
+                                 Cliente *objCliente[20]) {
   std::string lectura;
   std::string tmp;
   int cambioDeTipo;
   float cambioDeTipoF;
 
-  std::ifstream transacciones(pathTransacciones);
   std::ifstream clientes(pathClientes);
 
-  if (transacciones.is_open() && clientes.is_open()) {
+  if (clientes.is_open()) {
     for (int i = 0; i < 6; ++i) {
       clientes >> tmp;
     }
 
-    for (int i = 0; i < 7; ++i) {
-      transacciones >> tmp;
-    }
+    
 
     while (clientes >> lectura) {
       ++*pContadorCantidadCliente;
@@ -180,10 +176,25 @@ void Archivo::cargarDesdeArchivo(int *pContadorCantidadCliente,
       std::cout << "Se importaron " << *pContadorCantidadCliente + 1
                 << " clientes de la sesion anterior.\n\n";
     }
-
+  }
     clientes.close();
+}
 
-    while (transacciones >> lectura) {
+void Archivo::cargarDesdeArchivoTransacciones(Cliente *objCliente[20], int *pContadorNroTransaccion) {
+  std::ifstream transacciones(pathTransacciones);
+
+  std::string lectura;
+  std::string tmp;
+
+  int cambioDeTipo;
+  float cambioDeTipoF;
+  
+  if (transacciones.is_open()) {
+  for (int i = 0; i < 7; ++i) {
+      transacciones >> tmp;
+    }
+
+  while (transacciones >> lectura) {
       ++*pContadorNroTransaccion;
       /*Se guarda el numero del cliente al que corresponde la transaccion para
        asi poder asignarle la misma*/
@@ -247,7 +258,7 @@ void Archivo::cargarDesdeArchivo(int *pContadorCantidadCliente,
     }
 
     transacciones.close();
-  }
+ }
 }
 
 void Archivo::actulizarALaBaja(Cliente *objCliente[20], int *pContadorCantidadCliente){

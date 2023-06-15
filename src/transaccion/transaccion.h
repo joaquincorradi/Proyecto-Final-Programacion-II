@@ -35,9 +35,9 @@ public:
   void realizarExtraccion(float *);
   void realizarDeposito(float *);
 
-  void listarTransaccion();
-
   void listarSeisMeses(int *, int *);
+  void ListarPorAnio(int *pAnioSeleccionado);
+  void listarTransaccion();
 };
 
 #endif

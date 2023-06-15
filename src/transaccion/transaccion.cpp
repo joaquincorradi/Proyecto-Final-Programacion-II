@@ -113,3 +113,9 @@ void Transaccion::listarSeisMeses(int *pMesActual, int *pAnioActual) {
     std::cout <<"se ejecuto el if";
   }
 }
+
+void Transaccion::ListarPorAnio(int *pAnioSeleccionado) {
+  if (*pAnioSeleccionado == anioDeTransaccion) {
+    listarTransaccion();
+  }
+}

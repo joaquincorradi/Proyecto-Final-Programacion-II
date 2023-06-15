@@ -18,8 +18,11 @@ public:
   void actualizarArchivoClientes(Cliente *objCliente[20], int *);
   void actualizarArchivoTransacciones(Cliente *objCliente[20], int *, int *,
                                       int *);
-  void cargarDesdeArchivo(int *, Cliente *objCliente[20], int *);
   void actulizarALaBaja(Cliente *objCliente[20], int *);
+
+  void cargarDesdeArchivoClientes(int *, Cliente *objCliente[20]);
+  void cargarDesdeArchivoTransacciones(Cliente *objCliente[20], int *);
+  
 };
 
 #endif
