@@ -1,8 +1,6 @@
 /*
   To do list:
   - Crear funcion 9 (filtrar transacciones).
-  - Hacer el sistema de exportacion de archivos con fstream.
-  - Realizar try catch para ints.
   - Realizar chequeos de fechas.
   - Chequear que palabra ingresa el usuario como categoria.
   - Se puede extaer plata del futuro en el pasado.
@@ -330,10 +328,14 @@ void opcion9(Cliente *objCliente[20], int *pContadorCantidadCliente,
   switch (*pEleccionDelUsuarioSubmenu) {
   case 1:
     for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
-      objCliente[i]->listarTransaccionesDelClienteSeisMeses(mesActual,
-                                                            anioActual);
+      objCliente[i]->listarTransaccionesDelClienteSeisMeses(mesActual, anioActual);
     }
     break;
+
+    case 3:
+      for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
+        objCliente[i]->listarTransaccionesDelCliente();
+      }
 
   default:
     std::cout << "La opcion seleccionada no es valida.\n";
@@ -439,6 +441,7 @@ void incializarMenu() {
      termino esa ejecucion se le pregunta si quiere salir.*/
     if (!*pQuiereSalir) {
       std::cout << "¿Desea volver al menu principal? [S/n]: ";
+     
       std::cin >> *pSeleccionDelUsuarioFinal;
 
       if (*pSeleccionDelUsuarioFinal == 's' ||
