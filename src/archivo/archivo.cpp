@@ -249,3 +249,44 @@ void Archivo::cargarDesdeArchivo(int *pContadorCantidadCliente,
     transacciones.close();
   }
 }
+
+void Archivo::actulizarALaBaja(Cliente *objCliente[20], int *pContadorCantidadCliente){
+  std::ofstream clientes(pathClientes, std::ios::out);
+
+  if (clientes.is_open()) {
+    clientes << "NroCliente  Nombre  Apellido  Categoria  Anio  Estado";
+    
+    for (int i = 0; i <= *pContadorCantidadCliente; ++i){
+    clientes << '\n'
+             << objCliente[i]->getNumeroDeCliente()
+             << " ";
+    clientes << " "
+             << objCliente[i]->getNombreDelCliente()
+             << " ";
+    clientes << " "
+             << objCliente[i]->getApellidoDelCliente()
+             << " ";
+
+    if (objCliente[i]->getClientePlata()) {
+      clientes << " plata ";
+    } else if (objCliente[i]->getClienteOro()) {
+      clientes << " oro ";
+    } else if (objCliente[i]->getClienteBlack()) {
+      clientes << " black ";
+    }
+
+    clientes
+        << " "
+        << objCliente[i]->getAnioDeIngresoDelCliente()
+        << " ";
+
+    if (objCliente[i]->getEstadoDelCliente()) {
+      clientes << " activo" << '\n';
+    } else if (!objCliente[i]->getEstadoDelCliente()) {
+      clientes << " inactivo" << '\n';
+    }
+  }
+  }
+  clientes.close();
+}
+

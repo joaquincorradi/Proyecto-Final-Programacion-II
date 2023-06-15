@@ -1,6 +1,5 @@
 /*
   To do list:
-  - Actualizar clientes.txt cuando se da de baja un cliete.
   - Opcion 1 y 2 de opcion9().
   - Try catch.
   - Realizar chequeos de fechas.
@@ -17,7 +16,7 @@
 #include <limits>
 #include <stdexcept> // libreria para que funcione el catch
 
-void mostrarMenu(int *pSeleccionDelMenuPrincipal);
+void mostrarMenu(int *pSeleccionDelMenuPrincipal, int *diaActual, int *mesActual, int *anioActual);
 void obtenerFechaDeHoy(int *diaActual, int *mesActual, int *anioActual);
 void opcion1(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion2(Cliente *objCliente[20], int *pContadorCantidadCliente);
@@ -35,7 +34,7 @@ void incializarMenu();
 
 int main() { incializarMenu(); }
 
-void mostrarMenu(int *pSeleccionDelMenuPrincipal) {
+void mostrarMenu(int *pSeleccionDelMenuPrincipal, int *diaActual, int *mesActual, int *anioActual) {
   bool NaN = false;
 
   std::cout
@@ -51,7 +50,8 @@ void mostrarMenu(int *pSeleccionDelMenuPrincipal) {
   std::cout << "'Protegiendo sus activos digitales.~'\n\n";
   std::cout
       << "==============================================================\n\n";
-  std::cout << "Bienvenido. Para continuar seleccione una opcion:\n\n";
+  std::cout << "Bienvenido. Hoy es " << *diaActual << " / " << *mesActual << " / " << *anioActual << ".\n"; 
+  std::cout << "Para continuar seleccione una opcion:\n\n";
   std::cout << "[1] Alta de cliente.\n";
   std::cout << "[2] Baja de cliente.\n";
   std::cout << "[3] Reactivar cliente.\n";
@@ -137,8 +137,24 @@ void obtenerFechaDeHoy(int *diaActual, int *mesActual, int *anioActual) {
     std::cin >> *mesActual;
   }
 
-  std::cout << "Ingrese el anio actual (numero): ";
-  std::cin >> *anioActual;
+  do {
+    try {
+      std::cout << "Ingrese el anio actual (numero): ";
+      std::cin >> *anioActual;
+      if (std::cin.fail()) {
+        throw std::runtime_error("error");
+      } else {
+        NaN = false;
+      }
+    } catch (const std::exception &) {
+      NaN = true;
+      std::cout << "Por favor, ingrese un numero.\n";
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+  } while (NaN);
+
+
   while (*anioActual < 1900 || *anioActual > 2023) {
     std::cout
         << "\nIngrese una fecha valida. Nuestros datos van del 1900 al 2023.\n";
@@ -159,9 +175,25 @@ void opcion2(Cliente *objCliente[20], int *pContadorCantidadCliente) {
   int *pEleccionDelUsuario = &eleccionDelUsuario;
   bool existeElUsuario = true;
   bool *pExisteElUsuario = &existeElUsuario;
+  bool NaN = false;
 
-  std::cout << "Ingrese numero del usuario que desea dar de baja: ";
-  std::cin >> *pEleccionDelUsuario;
+  do {
+    try {
+      std::cout << "Ingrese numero del usuario que desea dar de baja: ";
+      std::cin >> *pEleccionDelUsuario;
+      if (std::cin.fail()) {
+        throw std::runtime_error("error");
+      } else {
+        NaN = false;
+      }
+    } catch (const std::exception &) {
+      NaN = true;
+      std::cout << "Por favor, ingrese un numero.\n";
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+  } while (NaN);
+
   for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
     if (*pEleccionDelUsuario == objCliente[i]->getNumeroDeCliente() &&
         objCliente[i]->getEstadoDelCliente()) {
@@ -171,6 +203,8 @@ void opcion2(Cliente *objCliente[20], int *pContadorCantidadCliente) {
   }
   if (!*pExisteElUsuario) {
     std::cout << "El cliente ingresado no existe o no se encuentra activo. \n";
+  } else if (*pContadorCantidadCliente == -1) {
+    std::cout << "\nAntes de realizar esta accion tiene que crear un cliente. \n";
   }
 }
 
@@ -181,8 +215,24 @@ void opcion3(Cliente *objCliente[20], int *pContadorCantidadCliente) {
   bool existeElUsuario = false;
   bool *pExisteElUsuario = &existeElUsuario;
 
-  std::cout << "Ingrese numero del usuario que desea reactivar: ";
-  std::cin >> *pEleccionDelUsuario;
+  bool NaN = false;
+
+  do {
+    try {
+      std::cout << "Ingrese numero del usuario que desea reactivar: ";
+      std::cin >> *pEleccionDelUsuario;
+      if (std::cin.fail()) {
+        throw std::runtime_error("error");
+      } else {
+        NaN = false;
+      }
+    } catch (const std::exception &) {
+      NaN = true;
+      std::cout << "Por favor, ingrese un numero.\n";
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+  } while (NaN);
 
   for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
     // A continuacion busca coincidencia con el cliente que ingreso el usuario
@@ -204,9 +254,26 @@ void opcion4(Cliente *objCliente[20], int *pContadorCantidadCliente,
   bool chequeoDeExistencia = false;
   bool *pChequeoDeExistencia = &chequeoDeExistencia;
 
+  bool NaN = false;
+
   std::cout << "Extraccion de dinero.\n\n";
-  std::cout << "Ingrese el numero de cliente para realizar una extraccion: ";
-  std::cin >> *pNumeroDeClienteElegido;
+  
+  do {
+    try {
+      std::cout << "Ingrese el numero de cliente para realizar una extraccion: ";
+      std::cin >> *pNumeroDeClienteElegido;
+      if (std::cin.fail()) {
+        throw std::runtime_error("error");
+      } else {
+        NaN = false;
+      }
+    } catch (const std::exception &) {
+      NaN = true;
+      std::cout << "Por favor, ingrese un numero.\n";
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+  } while (NaN);
 
   // Chequeo previo para ver si el usuario existe
   for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
@@ -264,9 +331,26 @@ void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente,
   bool chequeoDeExistencia = false;
   bool *pChequeoDeExistencia = &chequeoDeExistencia;
 
+  bool NaN = false;
+
   std::cout << "Deposito  de dinero.\n\n";
-  std::cout << "Ingrese el numero de cliente para realizar una deposito: ";
-  std::cin >> *pNumeroDeClienteElegido;
+
+  do {
+    try {
+      std::cout << "Ingrese el numero de cliente para realizar una deposito: ";
+      std::cin >> *pNumeroDeClienteElegido;
+      if (std::cin.fail()) {
+        throw std::runtime_error("error");
+      } else {
+        NaN = false;
+      }
+    } catch (const std::exception &) {
+      NaN = true;
+      std::cout << "Por favor, ingrese un numero.\n";
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+  } while (NaN);
 
   // Chequeo previo para ver si el usuario existe
   for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
@@ -275,6 +359,7 @@ void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente,
       *pChequeoDeExistencia = true;
     }
   }
+
   if (*pChequeoDeExistencia) {
     for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
       /*- Se compara cada lugar del array buscando una coincidencia con el
@@ -315,9 +400,30 @@ void opcion5(Cliente *objCliente[20], int *pContadorCantidadCliente,
 
 void opcion6(Cliente *objCliente[20], int *pContadorCantidadCliente) {
   int numeroDeClienteElegido = 0; // hacer de esta variable un puntero
+  bool NaN = false;
+
   std::cout << "Consulta de cliente por numero de cliente.\n\n";
-  std::cout << "Ingrese un numero de cliente para consultar: ";
-  std::cin >> numeroDeClienteElegido;
+  
+
+  do {
+    try {
+      std::cout << "Ingrese un numero de cliente para consultar: ";
+      std::cin >> numeroDeClienteElegido;
+
+      if (std::cin.fail()) {
+        throw std::runtime_error("error");
+      } else {
+        NaN = false;
+      }
+    } catch (const std::exception &) {
+      NaN = true;
+      std::cout << "Por favor, ingrese un numero.\n";
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+  } while (NaN);
+
+
   std::cout << '\n';
   if (numeroDeClienteElegido > *pContadorCantidadCliente) {
     std::cout << "\nNo hay cliente con el numero " << numeroDeClienteElegido
@@ -344,9 +450,27 @@ void opcion8(Cliente *objCliente[20], int *pContadorCantidadCliente) {
   bool chequeoDeExistencia = false;
   bool *pChequeoDeExistencia = &chequeoDeExistencia;
 
+  bool NaN = false;
+
   std::cout << "Consulta de transacciones por numero de cliente.\n\n";
-  std::cout << "Ingrese un numero de cliente para consultar: ";
-  std::cin >> *pNumeroDeClienteElegido;
+  
+  do {
+    try {
+      std::cout << "Ingrese un numero de cliente para consultar: ";
+      std::cin >> *pNumeroDeClienteElegido;
+
+      if (std::cin.fail()) {
+        throw std::runtime_error("error");
+      } else {
+        NaN = false;
+      }
+    } catch (const std::exception &) {
+      NaN = true;
+      std::cout << "Por favor, ingrese un numero.\n";
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+  } while (NaN);
 
   for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
     if (*pNumeroDeClienteElegido == objCliente[i]->getNumeroDeCliente()) {
@@ -380,13 +504,32 @@ void opcion9(Cliente *objCliente[20], int *pContadorCantidadCliente,
   int eleccionDelUsuarioSubmenu = 0;
   int *pEleccionDelUsuarioSubmenu = &eleccionDelUsuarioSubmenu;
 
+  bool NaN = 0;
+
   std::cout << "Filtrar transacciones y depositos por periodo.\n";
   std::cout << "Para continuar seleccione una opcion:\n\n";
   std::cout << "[1] Mostrar transacciones en los ultimos 6 meses.\n";
   std::cout << "[2] Filtrar transacciones por anio\n";
   std::cout << "[3] Mostrar todas las transacciones.\n\n";
-  std::cout << "Ingrese su eleccion: ";
-  std::cin >> *pEleccionDelUsuarioSubmenu;
+  
+
+  do {
+    try {
+      std::cout << "Ingrese su eleccion: ";
+      std::cin >> *pEleccionDelUsuarioSubmenu;
+
+      if (std::cin.fail()) {
+        throw std::runtime_error("error");
+      } else {
+        NaN = false;
+      }
+    } catch (const std::exception &) {
+      NaN = true;
+      std::cout << "Por favor, ingrese un numero.\n";
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+  } while (NaN);
 
   switch (*pEleccionDelUsuarioSubmenu) {
   case 1:
@@ -448,7 +591,7 @@ void incializarMenu() {
 
   while (*pSeleccionDelUsuarioFinal == 's' ||
          *pSeleccionDelUsuarioFinal == 'S') {
-    mostrarMenu(pSeleccionDelMenuPrincipal);
+    mostrarMenu(pSeleccionDelMenuPrincipal, pDiaActual, pMesActual, pAnioActual);
     std::cout << std::flush;
     system("cls||clear"); // para limpiar la terminal cada vez que ejecutamos
                           // una opcion
@@ -461,11 +604,12 @@ void incializarMenu() {
 
     case 2:
       opcion2(objCliente, pContadorCantidadCliente);
+      objArchivo->actulizarALaBaja(objCliente, pContadorCantidadCliente);
       break;
 
     case 3:
       opcion3(objCliente, pContadorCantidadCliente);
-
+      objArchivo->actulizarALaBaja(objCliente, pContadorCantidadCliente);
       break;
 
     case 4:
