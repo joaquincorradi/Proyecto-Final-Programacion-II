@@ -1,2 +1,0 @@
-NroCliente  Nombre  Apellido  Categoria  Anio  Estado DineroEnCuenta
-0  J  C  plata  2023  activo  300
