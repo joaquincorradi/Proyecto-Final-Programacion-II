@@ -12,7 +12,8 @@
 #include <limits>
 #include <stdexcept> // libreria para que funcione el catch
 
-void mostrarMenu(int *pSeleccionDelMenuPrincipal, int *diaActual, int *mesActual, int *anioActual);
+void mostrarMenu(int *pSeleccionDelMenuPrincipal, int *diaActual,
+                 int *mesActual, int *anioActual);
 void obtenerFechaDeHoy(int *diaActual, int *mesActual, int *anioActual);
 void opcion1(Cliente *objCliente[20], int *pContadorCantidadCliente);
 void opcion2(Cliente *objCliente[20], int *pContadorCantidadCliente);
@@ -30,8 +31,9 @@ void incializarMenu();
 
 int main() { incializarMenu(); }
 
-void mostrarMenu(int *pSeleccionDelMenuPrincipal, int *diaActual, int *mesActual, int *anioActual) {
-  bool NaN = false;//este bool es para los try y catch
+void mostrarMenu(int *pSeleccionDelMenuPrincipal, int *diaActual,
+                 int *mesActual, int *anioActual) {
+  bool NaN = false; // este bool es para los try y catch
 
   std::cout
       << "\n==============================================================\n";
@@ -46,7 +48,8 @@ void mostrarMenu(int *pSeleccionDelMenuPrincipal, int *diaActual, int *mesActual
   std::cout << "'Protegiendo sus activos digitales.~'\n\n";
   std::cout
       << "==============================================================\n\n";
-  std::cout << "Bienvenido. Hoy es " << *diaActual << " / " << *mesActual << " / " << *anioActual << ".\n"; 
+  std::cout << "Bienvenido. Hoy es " << *diaActual << " / " << *mesActual
+            << " / " << *anioActual << ".\n";
   std::cout << "Para continuar seleccione una opcion:\n\n";
   std::cout << "[1] Alta de cliente.\n";
   std::cout << "[2] Baja de cliente.\n";
@@ -150,7 +153,6 @@ void obtenerFechaDeHoy(int *diaActual, int *mesActual, int *anioActual) {
     }
   } while (NaN);
 
-
   while (*anioActual < 1900 || *anioActual > 2023) {
     std::cout
         << "\nIngrese una fecha valida. Nuestros datos van del 1900 al 2023.\n";
@@ -200,7 +202,8 @@ void opcion2(Cliente *objCliente[20], int *pContadorCantidadCliente) {
   if (!*pExisteElUsuario) {
     std::cout << "El cliente ingresado no existe o no se encuentra activo. \n";
   } else if (*pContadorCantidadCliente == -1) {
-    std::cout << "\nAntes de realizar esta accion tiene que crear un cliente. \n";
+    std::cout
+        << "\nAntes de realizar esta accion tiene que crear un cliente. \n";
   }
 }
 
@@ -253,10 +256,11 @@ void opcion4(Cliente *objCliente[20], int *pContadorCantidadCliente,
   bool NaN = false;
 
   std::cout << "Extraccion de dinero.\n\n";
-  
+
   do {
     try {
-      std::cout << "Ingrese el numero de cliente para realizar una extraccion: ";
+      std::cout
+          << "Ingrese el numero de cliente para realizar una extraccion: ";
       std::cin >> *pNumeroDeClienteElegido;
       if (std::cin.fail()) {
         throw 1;
@@ -399,7 +403,6 @@ void opcion6(Cliente *objCliente[20], int *pContadorCantidadCliente) {
   bool NaN = false;
 
   std::cout << "Consulta de cliente por numero de cliente.\n\n";
-  
 
   do {
     try {
@@ -418,7 +421,6 @@ void opcion6(Cliente *objCliente[20], int *pContadorCantidadCliente) {
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
   } while (NaN);
-
 
   std::cout << '\n';
   if (numeroDeClienteElegido > *pContadorCantidadCliente) {
@@ -449,7 +451,7 @@ void opcion8(Cliente *objCliente[20], int *pContadorCantidadCliente) {
   bool NaN = false;
 
   std::cout << "Consulta de transacciones por numero de cliente.\n\n";
-  
+
   do {
     try {
       std::cout << "Ingrese un numero de cliente para consultar: ";
@@ -537,7 +539,7 @@ void opcion9(Cliente *objCliente[20], int *pContadorCantidadCliente,
                                                             anioActual);
     }
     break;
-  
+
   case 2:
     do {
       try {
@@ -606,7 +608,8 @@ void incializarMenu() {
 
   objArchivo->iniciarNuevoArchivo();
   objArchivo->cargarDesdeArchivoClientes(pContadorCantidadCliente, objCliente);
-  objArchivo->cargarDesdeArchivoTransacciones(objCliente, pContadorNroTransaccion);
+  objArchivo->cargarDesdeArchivoTransacciones(objCliente,
+                                              pContadorNroTransaccion);
 
   obtenerFechaDeHoy(pDiaActual, pMesActual, pAnioActual);
   std::cout << std::flush;
@@ -614,7 +617,8 @@ void incializarMenu() {
 
   while (*pSeleccionDelUsuarioFinal == 's' ||
          *pSeleccionDelUsuarioFinal == 'S') {
-    mostrarMenu(pSeleccionDelMenuPrincipal, pDiaActual, pMesActual, pAnioActual);
+    mostrarMenu(pSeleccionDelMenuPrincipal, pDiaActual, pMesActual,
+                pAnioActual);
     std::cout << std::flush;
     system("cls||clear"); // para limpiar la terminal cada vez que ejecutamos
                           // una opcion

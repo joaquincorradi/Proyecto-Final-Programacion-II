@@ -26,7 +26,8 @@ void Archivo::iniciarNuevoArchivo() {
     clientes.open(pathClientes, std::ios::out);
 
     transacciones << "NroCliente  NroTransaccion  Monto Tipo  Dia  Mes  Anio";
-    clientes << "NroCliente  Nombre  Apellido  Categoria  Anio  Estado DineroEnCuenta";
+    clientes << "NroCliente  Nombre  Apellido  Categoria  Anio  Estado "
+                "DineroEnCuenta";
 
     transacciones.close();
     clientes.close();
@@ -121,7 +122,7 @@ void Archivo::actualizarArchivoTransacciones(Cliente *objCliente[20],
 }
 
 void Archivo::cargarDesdeArchivoClientes(int *pContadorCantidadCliente,
-                                 Cliente *objCliente[20]) {
+                                         Cliente *objCliente[20]) {
   std::string lectura;
   std::string tmp;
   int cambioDeTipo;
@@ -183,10 +184,11 @@ void Archivo::cargarDesdeArchivoClientes(int *pContadorCantidadCliente,
                 << " clientes de la sesion anterior.\n\n";
     }
   }
-    clientes.close();
+  clientes.close();
 }
 
-void Archivo::cargarDesdeArchivoTransacciones(Cliente *objCliente[20], int *pContadorNroTransaccion) {
+void Archivo::cargarDesdeArchivoTransacciones(Cliente *objCliente[20],
+                                              int *pContadorNroTransaccion) {
   std::ifstream transacciones(pathTransacciones);
 
   std::string lectura;
@@ -200,7 +202,7 @@ void Archivo::cargarDesdeArchivoTransacciones(Cliente *objCliente[20], int *pCon
       transacciones >> tmp;
     }
 
-  while (transacciones >> lectura) {
+    while (transacciones >> lectura) {
       ++*pContadorNroTransaccion;
       /*Se guarda el numero del cliente al que corresponde la transaccion para
        asi poder asignarle la misma*/
@@ -212,7 +214,7 @@ void Archivo::cargarDesdeArchivoTransacciones(Cliente *objCliente[20], int *pCon
         cantidadDeTransaccionesTmp = 0;
       } else {
         cantidadDeTransaccionesTmp =
-          objCliente[numeroDeClienteTmp]->getCantidadDeTransacciones();
+            objCliente[numeroDeClienteTmp]->getCantidadDeTransacciones();
       }
 
       cantidadDeTransaccionesTmp =
@@ -274,50 +276,40 @@ void Archivo::cargarDesdeArchivoTransacciones(Cliente *objCliente[20], int *pCon
     }
 
     transacciones.close();
- }
+  }
 }
 
-void Archivo::actulizarALaBaja(Cliente *objCliente[20], int *pContadorCantidadCliente){
+void Archivo::actulizarALaBaja(Cliente *objCliente[20],
+                               int *pContadorCantidadCliente) {
   std::ofstream clientes(pathClientes, std::ios::out);
 
   if (clientes.is_open()) {
-    clientes << "NroCliente  Nombre  Apellido  Categoria  Anio  Estado DineroEnCuenta";
-    
-    for (int i = 0; i <= *pContadorCantidadCliente; ++i){
-    clientes << '\n'
-             << objCliente[i]->getNumeroDeCliente()
-             << " ";
-    clientes << " "
-             << objCliente[i]->getNombreDelCliente()
-             << " ";
-    clientes << " "
-             << objCliente[i]->getApellidoDelCliente()
-             << " ";
+    clientes << "NroCliente  Nombre  Apellido  Categoria  Anio  Estado "
+                "DineroEnCuenta";
 
-    if (objCliente[i]->getClientePlata()) {
-      clientes << " plata ";
-    } else if (objCliente[i]->getClienteOro()) {
-      clientes << " oro ";
-    } else if (objCliente[i]->getClienteBlack()) {
-      clientes << " black ";
+    for (int i = 0; i <= *pContadorCantidadCliente; ++i) {
+      clientes << '\n' << objCliente[i]->getNumeroDeCliente() << " ";
+      clientes << " " << objCliente[i]->getNombreDelCliente() << " ";
+      clientes << " " << objCliente[i]->getApellidoDelCliente() << " ";
+
+      if (objCliente[i]->getClientePlata()) {
+        clientes << " plata ";
+      } else if (objCliente[i]->getClienteOro()) {
+        clientes << " oro ";
+      } else if (objCliente[i]->getClienteBlack()) {
+        clientes << " black ";
+      }
+
+      clientes << " " << objCliente[i]->getAnioDeIngresoDelCliente() << " ";
+
+      if (objCliente[i]->getEstadoDelCliente()) {
+        clientes << " activo ";
+      } else if (!objCliente[i]->getEstadoDelCliente()) {
+        clientes << " inactivo ";
+      }
+
+      clientes << " " << objCliente[i]->getDineroEnCuenta() << '\n';
     }
-
-    clientes
-        << " "
-        << objCliente[i]->getAnioDeIngresoDelCliente()
-        << " ";
-
-    if (objCliente[i]->getEstadoDelCliente()) {
-      clientes << " activo ";
-    } else if (!objCliente[i]->getEstadoDelCliente()) {
-      clientes << " inactivo ";
-    }
-
-    clientes << " "
-             << objCliente[i]->getDineroEnCuenta()
-             << '\n';
-  }
   }
   clientes.close();
 }
-
